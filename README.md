@@ -1,6 +1,4 @@
-<!-- FIXME update API name -->
 # Companies House Bankrupt Officer Search API
-<!-- FIXME update API name -->
 ## bankrupt-officer-search-api
 API handling bankrupt officer search
 
@@ -12,11 +10,6 @@ API handling bankrupt officer search
 ### Getting Started
 1. Run `make` to build
 2. Run `./start.sh` to run
-
-### Environment Variables
-Name | Description | Mandatory | Location
---- | --- | --- | ---
-BANKRUPT_OFFICER_SEARCH_API_PORT | Port this application runs on when deployed. | ✓ | start.sh
 
 ### Endpoints
 Path | Method | Description
