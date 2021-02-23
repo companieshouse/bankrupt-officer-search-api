@@ -1,7 +1,5 @@
 artifact_name       := bankrupt-officer-search-api
-
-.PHONY: all
-all: build
+version             := unversioned
 
 .PHONY: clean
 clean:
@@ -9,49 +7,39 @@ clean:
 	rm -f ./$(artifact_name).jar
 	rm -f ./$(artifact_name)-*.zip
 	rm -rf ./build-*
-
-.PHONY: build
-build:
-	mvn compile
-
-.PHONY: test
-test: test-unit test-integration
+	rm -rf ./build.log-*
 
 .PHONY: test-unit
 test-unit: clean
-	mvn test
+	mvn test -Dskip.integration.tests=true
 
 .PHONY: test-integration
 test-integration: clean
-	mvn -Dtest=*IntegrationTest test
+	mvn test -Dskip.unit.tests=true
 
-.PHONY: test-contract-provider
-test-contract-provider: clean
-	mvn -Dtest=*ProviderContractTest test
-
-.PHONY: test-contract-consumer
-test-contract-consumer: clean
-	mvn -Dtest=*ConsumerContractTest test
-
-.PHONY: dev
-dev: clean
-	mvn package -DskipTests=true
-	cp target/$(artifact_name)-unversioned.jar $(artifact_name).jar
+.PHONY: verify
+verify: test-unit test-integration
 
 .PHONY: package
 package:
 ifndef version
 	$(error No version given. Aborting)
 endif
-	$(info Packaging version: $(version))
 	mvn versions:set -DnewVersion=$(version) -DgenerateBackupPoms=false
-	mvn package -DskipTests=true
+	$(info Packaging version: $(version))
+	@test -s ./$(artifact_name).jar || { echo "ERROR: Service JAR not found"; exit 1; }
 	$(eval tmpdir:=$(shell mktemp -d build-XXXXXXXXXX))
 	cp ./start.sh $(tmpdir)
 	cp ./routes.yaml $(tmpdir)
-	cp ./target/$(artifact_name)-$(version).jar $(tmpdir)/$(artifact_name).jar
+	cp ./$(artifact_name).jar $(tmpdir)/$(artifact_name).jar
 	cd $(tmpdir); zip -r ../$(artifact_name)-$(version).zip *
 	rm -rf $(tmpdir)
+
+.PHONY: build
+build:
+	mvn versions:set -DnewVersion=$(version) -DgenerateBackupPoms=false
+	mvn package -Dmaven.test.skip=true
+	cp ./target/$(artifact_name)-$(version).jar ./$(artifact_name).jar
 
 .PHONY: dist
 dist: clean build package
@@ -62,5 +50,4 @@ sonar:
 
 .PHONY: sonar-pr-analysis
 sonar-pr-analysis:
-	mvn sonar:sonar	-P sonar-pr-analysis
-
+	mvn sonar:sonar -P sonar-pr-analysis
