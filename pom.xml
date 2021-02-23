@@ -10,7 +10,7 @@
 	<artifactId>bankrupt-officer-search-api</artifactId>
 	<version>unversioned</version>
 	<name>bankrupt-officer-search-api</name>
-	<description>CH API handling CRUD operations on Bankrupt Officer Search Service</description>
+	<description>CH API for Bankrupt Officer Search Service</description>
 
 	<properties>
 		<java.version>1.8</java.version>
