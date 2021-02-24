@@ -1,0 +1,5 @@
+app_name: bankrupt-officer-search-api
+group: internalapi
+weight: 991
+routes:
+   1: ^/internal/officer-search/scottish-bankrupt-officers.*
