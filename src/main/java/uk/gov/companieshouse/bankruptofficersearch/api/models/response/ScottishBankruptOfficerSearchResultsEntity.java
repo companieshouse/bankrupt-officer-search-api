@@ -1,13 +1,13 @@
-package uk.gov.companieshouse.bankruptofficersearch.api.models;
+package uk.gov.companieshouse.bankruptofficersearch.api.models.response;
 
 import java.util.List;
 
-public class ScottishBankruptOfficerSearchResults {
+public class ScottishBankruptOfficerSearchResultsEntity {
 
     private int itemsPerPage;
     private int startIndex;
     private long totalResults;
-    private List<ScottishBankruptOfficerSearchResult> items;
+    private List<ScottishBankruptOfficerSearchResultEntity> items;
 
     public int getItemsPerPage() {
         return itemsPerPage;
@@ -33,11 +33,11 @@ public class ScottishBankruptOfficerSearchResults {
         this.totalResults = totalResults;
     }
 
-    public List<ScottishBankruptOfficerSearchResult> getItems() {
+    public List<ScottishBankruptOfficerSearchResultEntity> getItems() {
         return items;
     }
 
-    public void setItems(List<ScottishBankruptOfficerSearchResult> items) {
+    public void setItems(List<ScottishBankruptOfficerSearchResultEntity> items) {
         this.items = items;
     }
 }

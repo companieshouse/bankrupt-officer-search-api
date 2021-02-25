@@ -1,11 +1,11 @@
-package uk.gov.companieshouse.bankruptofficersearch.api.models;
+package uk.gov.companieshouse.bankruptofficersearch.api.models.rest;
 
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
-public class ScottishBankruptOfficer {
+public class ScottishBankruptOfficerDetails {
     private String ephemeralKey;
     private String forename1;
     private String forename2;

@@ -1,4 +1,4 @@
-package uk.gov.companieshouse.bankruptofficersearch.api.models;
+package uk.gov.companieshouse.bankruptofficersearch.api.models.response;
 
 import org.springframework.stereotype.Component;
 
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
  * Filters to apply when searching for bankrupt officers
  */
 @Component
-public class ScottishBankruptOfficerSearchFilters {
+public class ScottishBankruptOfficerSearchFiltersEntity {
 
     private String forename1;
     private String surname;
