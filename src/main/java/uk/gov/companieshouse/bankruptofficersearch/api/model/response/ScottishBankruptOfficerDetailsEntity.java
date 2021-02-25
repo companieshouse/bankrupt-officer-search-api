@@ -1,13 +1,11 @@
-package uk.gov.companieshouse.bankruptofficersearch.api.models.rest;
+package uk.gov.companieshouse.bankruptofficersearch.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import java.time.LocalDate;
 
 @JsonInclude(Include.NON_NULL)
-public class ScottishBankruptOfficerSearchResult {
-
+public class ScottishBankruptOfficerDetailsEntity {
     private String ephemeralKey;
     private String forename1;
     private String forename2;
@@ -19,6 +17,13 @@ public class ScottishBankruptOfficerSearchResult {
     private String county;
     private String postcode;
     private LocalDate dateOfBirth;
+    private String alias;
+    private String caseReference;
+    private String caseType;
+    private String bankruptcyType;
+    private LocalDate startDate;
+    private LocalDate debtorDischargeDate;
+    private LocalDate trusteeDischargeDate;
 
     public String getEphemeralKey() {
         return ephemeralKey;
@@ -106,5 +111,61 @@ public class ScottishBankruptOfficerSearchResult {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getCaseReference() {
+        return caseReference;
+    }
+
+    public void setCaseReference(String caseReference) {
+        this.caseReference = caseReference;
+    }
+
+    public String getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(String caseType) {
+        this.caseType = caseType;
+    }
+
+    public String getBankruptcyType() {
+        return bankruptcyType;
+    }
+
+    public void setBankruptcyType(String bankruptcyType) {
+        this.bankruptcyType = bankruptcyType;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getDebtorDischargeDate() {
+        return debtorDischargeDate;
+    }
+
+    public void setDebtorDischargeDate(LocalDate debtorDischargeDate) {
+        this.debtorDischargeDate = debtorDischargeDate;
+    }
+
+    public LocalDate getTrusteeDischargeDate() {
+        return trusteeDischargeDate;
+    }
+
+    public void setTrusteeDischargeDate(LocalDate trusteeDischargeDate) {
+        this.trusteeDischargeDate = trusteeDischargeDate;
     }
 }

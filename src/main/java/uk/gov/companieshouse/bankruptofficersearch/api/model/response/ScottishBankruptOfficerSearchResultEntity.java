@@ -1,4 +1,4 @@
-package uk.gov.companieshouse.bankruptofficersearch.api.models.response;
+package uk.gov.companieshouse.bankruptofficersearch.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

@@ -1,4 +1,4 @@
-package uk.gov.companieshouse.bankruptofficersearch.api.models.response;
+package uk.gov.companieshouse.bankruptofficersearch.api.model.rest;
 
 import org.springframework.stereotype.Component;
 
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
  * (filtering and pagination).
  */
 @Component
-public class ScottishBankruptOfficerSearchEntity {
+public class ScottishBankruptOfficerSearch {
 
     private int startIndex;
     private int itemsPerPage;
-    private ScottishBankruptOfficerSearchFiltersEntity filters;
+    private ScottishBankruptOfficerSearchFilters filters;
 
     public int getStartIndex() {
         return startIndex;
@@ -29,11 +29,11 @@ public class ScottishBankruptOfficerSearchEntity {
         this.itemsPerPage = itemsPerPage;
     }
 
-    public ScottishBankruptOfficerSearchFiltersEntity getFilters() {
+    public ScottishBankruptOfficerSearchFilters getFilters() {
         return filters;
     }
 
-    public void setFilters(ScottishBankruptOfficerSearchFiltersEntity filters) {
+    public void setFilters(ScottishBankruptOfficerSearchFilters filters) {
         this.filters = filters;
     }
 }

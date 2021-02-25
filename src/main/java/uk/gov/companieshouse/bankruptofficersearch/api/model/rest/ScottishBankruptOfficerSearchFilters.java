@@ -1,4 +1,4 @@
-package uk.gov.companieshouse.bankruptofficersearch.api.models.rest;
+package uk.gov.companieshouse.bankruptofficersearch.api.model.rest;
 
 import org.springframework.stereotype.Component;
 

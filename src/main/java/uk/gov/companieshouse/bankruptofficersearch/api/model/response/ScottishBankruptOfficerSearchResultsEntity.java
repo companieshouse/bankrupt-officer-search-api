@@ -1,4 +1,4 @@
-package uk.gov.companieshouse.bankruptofficersearch.api.models.response;
+package uk.gov.companieshouse.bankruptofficersearch.api.model.response;
 
 import java.util.List;
 
