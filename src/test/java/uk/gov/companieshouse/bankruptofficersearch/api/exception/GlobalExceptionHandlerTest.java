@@ -1,6 +1,6 @@
 package uk.gov.companieshouse.bankruptofficersearch.api.exception;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
