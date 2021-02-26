@@ -19,7 +19,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void testHandleException() {
-        ResponseEntity entity = globalExceptionHandler.handleException(new Exception());
+        ResponseEntity<Object> entity = globalExceptionHandler.handleException(new Exception());
 
         assertNotNull(entity);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,entity.getStatusCode());
