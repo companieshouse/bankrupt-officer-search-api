@@ -16,7 +16,7 @@ import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBa
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
 
 @ExtendWith(MockitoExtension.class)
-public class OracleQueryDaoImplTest {
+class OracleQueryDaoImplTest {
 
     private static final String ORACLE_QUERY_API_TEST_URL = "http://oracle-query-api";
 
