@@ -24,6 +24,17 @@
 		<spring-boot-dependencies.version>2.1.15.RELEASE</spring-boot-dependencies.version>
 		<spring-boot-maven-plugin.version>2.1.15.RELEASE</spring-boot-maven-plugin.version>
 		<start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
+
+        <!-- Sonar dependency -->
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.projectKey>uk.gov.companieshouse:bankrupt-officer-search-api</sonar.projectKey>
+        <sonar.sources>src/main</sonar.sources>
+        <sonar.tests>src/test</sonar.tests>
+        <sonar.verbose>true</sonar.verbose>
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ${project.basedir}/target/site/jacoco/jacoco.xml,
+            ${project.basedir}/target/site/jacoco-it/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 
 	<dependencyManagement>
@@ -81,16 +92,9 @@
 			<version>${hamcrest-all-version}</version>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.sonarsource.scanner.maven</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>${sonar-maven-plugin.version}</version>
-        </dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -107,7 +111,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -128,7 +131,11 @@
 					</execution>
 				</executions>
 			</plugin>
-
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar-maven-plugin.version}</version>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -155,5 +162,4 @@
             </plugin>
 		</plugins>
 	</build>
-
 </project>
