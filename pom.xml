@@ -9,6 +9,7 @@
 	</parent>
 	<artifactId>bankrupt-officer-search-api</artifactId>
 	<version>unversioned</version>
+    <packaging>jar</packaging>
 	<name>bankrupt-officer-search-api</name>
 	<description>CH API for Bankrupt Officer Search Service</description>
 
