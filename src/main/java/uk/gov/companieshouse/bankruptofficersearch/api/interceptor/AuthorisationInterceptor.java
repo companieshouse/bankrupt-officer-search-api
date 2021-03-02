@@ -58,18 +58,6 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
-        // decode user details and set on session
-        String[] userDetails = authorisedUser.split(";");
-        if (indexExists(userDetails, 0)) {
-            request.setAttribute("user_email", userDetails[0].trim());
-        }
-        if (indexExists(userDetails, 1)) {
-            request.setAttribute("user_forename", getValue(userDetails[1]));
-        }
-        if (indexExists(userDetails, 2)) {
-            request.setAttribute("user_surname", getValue(userDetails[2]));
-        }
-
         return true;
     }
 
@@ -77,17 +65,5 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         // cleanup request attributes to ensure user details are never leaked into another request
         request.setAttribute("user_id", null);
-        request.setAttribute("user_email", null);
-        request.setAttribute("user_forename", null);
-        request.setAttribute("user_surname", null);
-    }
-
-    private String getValue(String value) {
-        String[] returnValue = value.split("=");
-        return indexExists(returnValue, 1) ? returnValue[1] : null;
-    }
-
-    private boolean indexExists(final String[] list, final int index) {
-        return index >= 0 && index < list.length;
     }
 }
