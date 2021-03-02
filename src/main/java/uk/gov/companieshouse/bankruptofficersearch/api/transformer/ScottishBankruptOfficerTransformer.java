@@ -3,9 +3,13 @@ package uk.gov.companieshouse.bankruptofficersearch.api.transformer;
 import java.util.ArrayList;
 import java.util.List;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
+import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
+import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchFiltersEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerDetails;
+import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearch;
+import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchFilters;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResult;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResults;
 
@@ -66,35 +70,24 @@ public class ScottishBankruptOfficerTransformer {
         return searchResult;
     }
 
-    public ScottishBankruptOfficerSearchResultsEntity convertToSearchResultsEntity(ScottishBankruptOfficerSearchResults results) {
-        List<ScottishBankruptOfficerSearchResultEntity> searchResultEntities = new ArrayList<>();
+    public ScottishBankruptOfficerSearchEntity convertToSearchEntity(ScottishBankruptOfficerSearch officerSearch) {
+        ScottishBankruptOfficerSearchEntity searchEntity = new ScottishBankruptOfficerSearchEntity();
 
-        for (ScottishBankruptOfficerSearchResult result : results.getItems()) {
-            searchResultEntities.add(convertToSearchResultEntity(result));
-        }
-        ScottishBankruptOfficerSearchResultsEntity searchResultsEntity = new ScottishBankruptOfficerSearchResultsEntity();
-        searchResultsEntity.setItems(searchResultEntities);
-        searchResultsEntity.setItemsPerPage(results.getItemsPerPage());
-        searchResultsEntity.setStartIndex(results.getStartIndex());
-        searchResultsEntity.setTotalResults(results.getTotalResults());
-        return searchResultsEntity;
+        searchEntity.setStartIndex(officerSearch.getStartIndex());
+        searchEntity.setItemsPerPage(officerSearch.getItemsPerPage());
+        searchEntity.setFilters(convertToFiltersEntity(officerSearch.getFilters()));
+
+        return searchEntity;
     }
 
-    public ScottishBankruptOfficerSearchResultEntity convertToSearchResultEntity(ScottishBankruptOfficerSearchResult searchResult) {
-        ScottishBankruptOfficerSearchResultEntity searchResultEntity = new ScottishBankruptOfficerSearchResultEntity();
+    private ScottishBankruptOfficerSearchFiltersEntity convertToFiltersEntity(ScottishBankruptOfficerSearchFilters filters) {
+        ScottishBankruptOfficerSearchFiltersEntity filtersEntity = new ScottishBankruptOfficerSearchFiltersEntity();
 
-        searchResultEntity.setEphemeralKey(searchResult.getEphemeralKey());
-        searchResultEntity.setForename1(searchResult.getForename1());
-        searchResultEntity.setForename2(searchResult.getForename2());
-        searchResultEntity.setSurname(searchResult.getSurname());
-        searchResultEntity.setDateOfBirth(searchResult.getDateOfBirth());
-        searchResultEntity.setPostcode(searchResult.getPostcode());
-        searchResultEntity.setAddressLine1(searchResult.getAddressLine1());
-        searchResultEntity.setAddressLine2(searchResult.getAddressLine2());
-        searchResultEntity.setAddressLine3(searchResult.getAddressLine3());
-        searchResultEntity.setCounty(searchResult.getCounty());
-        searchResultEntity.setTown(searchResult.getTown());
+        filtersEntity.setForename1(filters.getForename1());
+        filtersEntity.setSurname(filters.getSurname());
+        filtersEntity.setDateOfBirth(filters.getDateOfBirth());
+        filtersEntity.setPostcode(filters.getPostcode());
 
-        return searchResultEntity;
+        return filtersEntity;
     }
 }
