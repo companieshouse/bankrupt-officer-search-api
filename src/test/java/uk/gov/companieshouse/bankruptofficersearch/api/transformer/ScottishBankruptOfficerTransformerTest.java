@@ -65,12 +65,30 @@ public class ScottishBankruptOfficerTransformerTest {
 
     }
 
+    @Test
+    @DisplayName("Convert officer result entity")
+    void testConvertOfficerResultEntity() {
+        ScottishBankruptOfficerSearchResult newSearchResult = createSearchResult();
+        ScottishBankruptOfficerSearchResultEntity convertedOfficerEntity = transformer.convertToSearchResultEntity(newSearchResult);
 
+        assertEquals(EPHEMERAL_KEY, convertedOfficerEntity.getEphemeralKey());
+        assertEquals(FORENAME1, convertedOfficerEntity.getForename1());
+        assertEquals(FORENAME2, convertedOfficerEntity.getForename2());
+        assertEquals(SURNAME, convertedOfficerEntity.getSurname());
+        assertEquals(ADDRESS_LINE1, convertedOfficerEntity.getAddressLine1());
+        assertEquals(ADDRESS_LINE2, convertedOfficerEntity.getAddressLine2());
+        assertEquals(ADDRESS_LINE3, convertedOfficerEntity.getAddressLine3());
+        assertEquals(ADDRESS_TOWN, convertedOfficerEntity.getTown());
+        assertEquals(ADDRESS_COUNTY, convertedOfficerEntity.getCounty());
+        assertEquals(ADDRESS_POSTCODE, convertedOfficerEntity.getPostcode());
+        assertEquals(DATE_OF_BIRTH, convertedOfficerEntity.getDateOfBirth());
+
+    }
 
     @Test
     @DisplayName("Convert officer details")
     void testConvertOfficerDetails() {
-        ScottishBankruptOfficerDetailsEntity newOfficer = createOfficer();
+        ScottishBankruptOfficerDetailsEntity newOfficer = createOfficerEntity();
         ScottishBankruptOfficerDetails convertedOfficer = transformer.convertToDetails(newOfficer);
         assertEquals(EPHEMERAL_KEY, convertedOfficer.getEphemeralKey());
         assertEquals(FORENAME1, convertedOfficer.getForename1());
@@ -92,7 +110,6 @@ public class ScottishBankruptOfficerTransformerTest {
         assertEquals(TRUSTEE_DISCHARGE_DATE, convertedOfficer.getTrusteeDischargeDate());
 
     }
-
 
     @Test
     @DisplayName("Convert multiple officers")
@@ -118,7 +135,32 @@ public class ScottishBankruptOfficerTransformerTest {
         assertEquals(1, convertedList.getItemsPerPage());
     }
 
-    private ScottishBankruptOfficerDetailsEntity createOfficer() {
+    @Test
+    @DisplayName("Convert multiple officers")
+    void testConvertMultipleOfficerEntities() {
+        List<ScottishBankruptOfficerSearchResult>searchResultList = new ArrayList<>();
+
+        searchResultList.add(createSearchResult());
+        searchResultList.add(createSearchResult());
+        searchResultList.add(createSearchResult());
+        searchResultList.add(createSearchResult());
+        searchResultList.add(createSearchResult());
+
+        ScottishBankruptOfficerSearchResults searchResults = new ScottishBankruptOfficerSearchResults();
+        searchResults.setItems(searchResultList);
+        searchResults.setItemsPerPage(1);
+        searchResults.setStartIndex(1);
+        searchResults.setTotalResults(searchResults.getItems().size());
+
+        ScottishBankruptOfficerSearchResultsEntity convertedList = transformer.convertToSearchResultsEntity(searchResults);
+        assertEquals(5, convertedList.getItems().size());
+        assertEquals(5, convertedList.getTotalResults());
+        assertEquals(1, convertedList.getStartIndex());
+        assertEquals(1, convertedList.getItemsPerPage());
+    }
+
+
+    private ScottishBankruptOfficerDetailsEntity createOfficerEntity() {
 
         ScottishBankruptOfficerDetailsEntity detailsEntity = new ScottishBankruptOfficerDetailsEntity();
 
@@ -145,9 +187,54 @@ public class ScottishBankruptOfficerTransformerTest {
 
     }
 
+    private ScottishBankruptOfficerDetails createOfficer() {
+
+        ScottishBankruptOfficerDetails details = new ScottishBankruptOfficerDetails();
+
+        details.setEphemeralKey(EPHEMERAL_KEY);
+        details.setForename1(FORENAME1);
+        details.setForename2(FORENAME2);
+        details.setSurname(SURNAME);
+        details.setAddressLine1(ADDRESS_LINE1);
+        details.setAddressLine2(ADDRESS_LINE2);
+        details.setAddressLine3(ADDRESS_LINE3);
+        details.setTown(ADDRESS_TOWN);
+        details.setCounty(ADDRESS_COUNTY);
+        details.setPostcode(ADDRESS_POSTCODE);
+        details.setDateOfBirth(DATE_OF_BIRTH);
+        details.setAlias(ALIAS);
+        details.setCaseReference(CASE_REFERENCE);
+        details.setCaseType(CASE_TYPE);
+        details.setBankruptcyType(BANKRUPTCY_TYPE);
+        details.setStartDate(START_DATE);
+        details.setDebtorDischargeDate(DEBTOR_DISCHARGE);
+        details.setTrusteeDischargeDate(TRUSTEE_DISCHARGE_DATE);
+
+        return details;
+
+    }
+
     private ScottishBankruptOfficerSearchResultEntity createSearchResultEntity() {
 
-        ScottishBankruptOfficerSearchResultEntity searchResult = new ScottishBankruptOfficerSearchResultEntity();
+        ScottishBankruptOfficerSearchResultEntity searchResultEntity = new ScottishBankruptOfficerSearchResultEntity();
+
+        searchResultEntity.setEphemeralKey(EPHEMERAL_KEY);
+        searchResultEntity.setForename1(FORENAME1);
+        searchResultEntity.setForename2(FORENAME2);
+        searchResultEntity.setSurname(SURNAME);
+        searchResultEntity.setDateOfBirth(DATE_OF_BIRTH);
+        searchResultEntity.setPostcode(ADDRESS_POSTCODE);
+        searchResultEntity.setAddressLine1(ADDRESS_LINE1);
+        searchResultEntity.setAddressLine2(ADDRESS_LINE2);
+        searchResultEntity.setAddressLine3(ADDRESS_LINE3);
+        searchResultEntity.setCounty(ADDRESS_COUNTY);
+        searchResultEntity.setTown(ADDRESS_TOWN);
+        return searchResultEntity;
+    }
+
+    private ScottishBankruptOfficerSearchResult createSearchResult() {
+
+        ScottishBankruptOfficerSearchResult searchResult = new ScottishBankruptOfficerSearchResult();
 
         searchResult.setEphemeralKey(EPHEMERAL_KEY);
         searchResult.setForename1(FORENAME1);
