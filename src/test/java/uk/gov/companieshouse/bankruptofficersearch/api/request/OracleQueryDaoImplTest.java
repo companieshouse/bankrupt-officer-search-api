@@ -1,6 +1,9 @@
 package uk.gov.companieshouse.bankruptofficersearch.api.request;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +12,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
@@ -30,16 +35,19 @@ class OracleQueryDaoImplTest {
     @Mock
     private ScottishBankruptOfficerSearchEntity searchEntity;
 
+    @Mock
+    HttpClientErrorException httpClientErrorException;
+
     @InjectMocks
     private OracleQueryDaoImpl oracleQueryDao;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         ReflectionTestUtils.setField(oracleQueryDao, "oracleQueryApiUrl", ORACLE_QUERY_API_TEST_URL);
     }
 
     @Test
-    void testGetScottishBankruptOfficers() {
+    void testSearchScottishBankruptOfficers() {
         ScottishBankruptOfficerSearchResultsEntity searchResults = new ScottishBankruptOfficerSearchResultsEntity();
 
         when(restTemplate.postForObject(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI, searchEntity, ScottishBankruptOfficerSearchResultsEntity.class)).thenReturn(searchResults);
@@ -58,5 +66,14 @@ class OracleQueryDaoImplTest {
         ScottishBankruptOfficerDetailsEntity result = oracleQueryDao.getScottishBankruptOfficer(OFFICER_ID);
 
         assertEquals(officerDetails, result);
+    }
+
+    @Test
+    void testGetScottishBankruptOfficerWhenOfficerNotFound() {
+        when(restTemplate.getForObject(anyString(), eq(ScottishBankruptOfficerDetailsEntity.class))).thenThrow(httpClientErrorException);
+        when(httpClientErrorException.getStatusCode()).thenReturn(HttpStatus.NOT_FOUND);
+
+        assertThrows(HttpClientErrorException.class, () -> oracleQueryDao.getScottishBankruptOfficer(OFFICER_ID));
+        assertEquals(HttpStatus.NOT_FOUND, httpClientErrorException.getStatusCode());
     }
 }
