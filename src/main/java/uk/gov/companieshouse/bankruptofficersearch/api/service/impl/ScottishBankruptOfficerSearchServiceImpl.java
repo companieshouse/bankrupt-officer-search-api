@@ -25,6 +25,7 @@ public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficer
 
 	@Override
 	public ScottishBankruptOfficerSearchResults searchScottishBankruptOfficers(ScottishBankruptOfficerSearch search) {
+
 	    ScottishBankruptOfficerSearchEntity searchEntity = scottishBankruptOfficerTransformer.convertToSearchEntity(search);
 		ScottishBankruptOfficerSearchResultsEntity details = oracleQueryDao.getScottishBankruptOfficers(searchEntity);
 
