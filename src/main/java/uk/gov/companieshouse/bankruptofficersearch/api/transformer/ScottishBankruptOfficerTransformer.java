@@ -65,4 +65,60 @@ public class ScottishBankruptOfficerTransformer {
         searchResult.setTown(searchResultEntity.getTown());
         return searchResult;
     }
+
+    public ScottishBankruptOfficerSearchResultsEntity convertToSearchResultsEntity(ScottishBankruptOfficerSearchResults results) {
+        List<ScottishBankruptOfficerSearchResultEntity> searchResultEntities = new ArrayList<>();
+
+        for (ScottishBankruptOfficerSearchResult result : results.getItems()) {
+            searchResultEntities.add(convertToSearchResultEntity(result));
+        }
+        ScottishBankruptOfficerSearchResultsEntity searchResultsEntity = new ScottishBankruptOfficerSearchResultsEntity();
+        searchResultsEntity.setItems(searchResultEntities);
+        searchResultsEntity.setItemsPerPage(results.getItemsPerPage());
+        searchResultsEntity.setStartIndex(results.getStartIndex());
+        searchResultsEntity.setTotalResults(results.getTotalResults());
+        return searchResultsEntity;
+    }
+
+    public ScottishBankruptOfficerDetailsEntity convertToDetailsEntity(ScottishBankruptOfficerDetails details){
+        ScottishBankruptOfficerDetailsEntity detailsEntity = new ScottishBankruptOfficerDetailsEntity();
+
+        detailsEntity.setForename1(details.getForename1());
+        detailsEntity.setForename2(details.getForename2());
+        detailsEntity.setSurname(details.getSurname());
+        detailsEntity.setDateOfBirth(details.getDateOfBirth());
+        detailsEntity.setPostcode(details.getPostcode());
+        detailsEntity.setAddressLine1(details.getAddressLine1());
+        detailsEntity.setAddressLine2(details.getAddressLine2());
+        detailsEntity.setAddressLine3(details.getAddressLine3());
+        detailsEntity.setCounty(details.getCounty());
+        detailsEntity.setTown(details.getTown());
+        detailsEntity.setAlias(details.getAlias());
+        detailsEntity.setCaseReference(details.getCaseReference());
+        detailsEntity.setCaseType(details.getCaseType());
+        detailsEntity.setBankruptcyType(details.getBankruptcyType());
+        detailsEntity.setStartDate(details.getStartDate());
+        detailsEntity.setDebtorDischargeDate(details.getDebtorDischargeDate());
+        detailsEntity.setTrusteeDischargeDate(details.getTrusteeDischargeDate());
+        detailsEntity.setEphemeralKey(details.getEphemeralKey());
+        return detailsEntity;
+    }
+
+    public ScottishBankruptOfficerSearchResultEntity convertToSearchResultEntity(ScottishBankruptOfficerSearchResult searchResult) {
+        ScottishBankruptOfficerSearchResultEntity searchResultEntity = new ScottishBankruptOfficerSearchResultEntity();
+
+        searchResultEntity.setEphemeralKey(searchResult.getEphemeralKey());
+        searchResultEntity.setForename1(searchResult.getForename1());
+        searchResultEntity.setForename2(searchResult.getForename2());
+        searchResultEntity.setSurname(searchResult.getSurname());
+        searchResultEntity.setDateOfBirth(searchResult.getDateOfBirth());
+        searchResultEntity.setPostcode(searchResult.getPostcode());
+        searchResultEntity.setAddressLine1(searchResult.getAddressLine1());
+        searchResultEntity.setAddressLine2(searchResult.getAddressLine2());
+        searchResultEntity.setAddressLine3(searchResult.getAddressLine3());
+        searchResultEntity.setCounty(searchResult.getCounty());
+        searchResultEntity.setTown(searchResult.getTown());
+
+        return searchResultEntity;
+    }
 }
