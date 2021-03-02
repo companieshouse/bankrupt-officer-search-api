@@ -112,33 +112,6 @@ public class ScottishBankruptOfficerTransformerTest {
     }
 
     @Test
-    @DisplayName("Convert officer details")
-    void testConvertOfficerDetailsEntity() {
-        ScottishBankruptOfficerDetails newOfficer = createOfficer();
-        ScottishBankruptOfficerDetailsEntity convertedOfficerEntity = transformer.convertToDetailsEntity(newOfficer);
-        assertEquals(EPHEMERAL_KEY, convertedOfficerEntity.getEphemeralKey());
-        assertEquals(FORENAME1, convertedOfficerEntity.getForename1());
-        assertEquals(FORENAME2, convertedOfficerEntity.getForename2());
-        assertEquals(SURNAME, convertedOfficerEntity.getSurname());
-        assertEquals(ADDRESS_LINE1, convertedOfficerEntity.getAddressLine1());
-        assertEquals(ADDRESS_LINE2, convertedOfficerEntity.getAddressLine2());
-        assertEquals(ADDRESS_LINE3, convertedOfficerEntity.getAddressLine3());
-        assertEquals(ADDRESS_TOWN, convertedOfficerEntity.getTown());
-        assertEquals(ADDRESS_COUNTY, convertedOfficerEntity.getCounty());
-        assertEquals(ADDRESS_POSTCODE, convertedOfficerEntity.getPostcode());
-        assertEquals(DATE_OF_BIRTH, convertedOfficerEntity.getDateOfBirth());
-        assertEquals(ALIAS, convertedOfficerEntity.getAlias());
-        assertEquals(CASE_REFERENCE, convertedOfficerEntity.getCaseReference());
-        assertEquals(CASE_TYPE, convertedOfficerEntity.getCaseType());
-        assertEquals(BANKRUPTCY_TYPE, convertedOfficerEntity.getBankruptcyType());
-        assertEquals(START_DATE, convertedOfficerEntity.getStartDate());
-        assertEquals(DEBTOR_DISCHARGE, convertedOfficerEntity.getDebtorDischargeDate());
-        assertEquals(TRUSTEE_DISCHARGE_DATE, convertedOfficerEntity.getTrusteeDischargeDate());
-
-    }
-
-
-    @Test
     @DisplayName("Convert multiple officers")
     void testConvertMultipleOfficers() {
         List<ScottishBankruptOfficerSearchResultEntity>searchResultEntityList = new ArrayList<>();

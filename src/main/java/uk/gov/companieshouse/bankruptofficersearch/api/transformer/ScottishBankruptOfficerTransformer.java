@@ -80,30 +80,6 @@ public class ScottishBankruptOfficerTransformer {
         return searchResultsEntity;
     }
 
-    public ScottishBankruptOfficerDetailsEntity convertToDetailsEntity(ScottishBankruptOfficerDetails details){
-        ScottishBankruptOfficerDetailsEntity detailsEntity = new ScottishBankruptOfficerDetailsEntity();
-
-        detailsEntity.setForename1(details.getForename1());
-        detailsEntity.setForename2(details.getForename2());
-        detailsEntity.setSurname(details.getSurname());
-        detailsEntity.setDateOfBirth(details.getDateOfBirth());
-        detailsEntity.setPostcode(details.getPostcode());
-        detailsEntity.setAddressLine1(details.getAddressLine1());
-        detailsEntity.setAddressLine2(details.getAddressLine2());
-        detailsEntity.setAddressLine3(details.getAddressLine3());
-        detailsEntity.setCounty(details.getCounty());
-        detailsEntity.setTown(details.getTown());
-        detailsEntity.setAlias(details.getAlias());
-        detailsEntity.setCaseReference(details.getCaseReference());
-        detailsEntity.setCaseType(details.getCaseType());
-        detailsEntity.setBankruptcyType(details.getBankruptcyType());
-        detailsEntity.setStartDate(details.getStartDate());
-        detailsEntity.setDebtorDischargeDate(details.getDebtorDischargeDate());
-        detailsEntity.setTrusteeDischargeDate(details.getTrusteeDischargeDate());
-        detailsEntity.setEphemeralKey(details.getEphemeralKey());
-        return detailsEntity;
-    }
-
     public ScottishBankruptOfficerSearchResultEntity convertToSearchResultEntity(ScottishBankruptOfficerSearchResult searchResult) {
         ScottishBankruptOfficerSearchResultEntity searchResultEntity = new ScottishBankruptOfficerSearchResultEntity();
 
