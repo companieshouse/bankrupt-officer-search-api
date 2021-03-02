@@ -21,7 +21,14 @@ import uk.gov.companieshouse.logging.Logger;
 @ExtendWith(MockitoExtension.class)
 public class AuthorisationInterceptorTest {
 
-    private final String USER_ID_FIELD = "user_id";
+    private static final String ADMIN_SCOTTISH_BANKRUPT_OFFICER_ROLE = "/admin/officer-search/scottish-bankrupt-officer";
+    private static final String USER_ID_FIELD = "user_id";
+
+    private final String TEST_ROLE = "test_role";
+    private final String IDENTITY_FIELD = "identity";
+
+    @Mock
+    private AuthenticationHelper authenticationHelper;
 
     @InjectMocks
     private AuthorisationInterceptor testInterceptor;
@@ -32,17 +39,26 @@ public class AuthorisationInterceptorTest {
     @Mock
     private HttpServletResponse response;
 
-    @Mock
-    private Logger logger;
-
     @Test
     void preHandleWhenRoleAuthorisedIsFalse() {
-        when(AuthenticationHelper.isRoleAuthorised(request)).thenReturn(false);
+        when(authenticationHelper.getAuthorisedRoles(request)).thenReturn(TEST_ROLE);
 
         assertThat(testInterceptor.preHandle(request, response, null), is(false));
 
         verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        verifyNoMoreInteractions(request, response);
+        //verifyNoMoreInteractions(request, response);
+    }
+
+    @Test
+    void preHandleWhenIdentityNull() {
+//        when(authenticationHelper.getAuthorisedRoles(request))
+//                .thenReturn(ADMIN_SCOTTISH_BANKRUPT_OFFICER_ROLE);
+//        when(authenticationHelper.getAuthorisedIdentityType(request))
+//                .thenReturn("");
+//
+//        assertThat(testInterceptor.preHandle(request, response, null), is(false));
+//        verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        //verifyNoMoreInteractions(request, response);
     }
 
     @Test
