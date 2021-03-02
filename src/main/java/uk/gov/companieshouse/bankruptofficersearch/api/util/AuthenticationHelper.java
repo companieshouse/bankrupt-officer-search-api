@@ -9,16 +9,13 @@ public class AuthenticationHelper {
     private AuthenticationHelper() {
     }
 
-    public static final String OAUTH2_IDENTITY_TYPE          = "oauth2";
-    public static final String API_KEY_IDENTITY_TYPE         = "key";
-    public static final String ADMIN_SCOTTISH_BANKRUPT_OFFICER_ROLE = "/admin/officer-search/scottish-bankrupt-officer";
-    public static final String API_KEY_ELEVATED_ROLE         = "*";
+    public static final String OAUTH2_IDENTITY_TYPE      = "oauth2";
 
+    private static final String ADMIN_SCOTTISH_BANKRUPT_OFFICER_ROLE = "/admin/officer-search/scottish-bankrupt-officer";
     private static final String ERIC_IDENTITY             = "ERIC-Identity";
     private static final String ERIC_IDENTITY_TYPE        = "ERIC-Identity-Type";
     private static final String ERIC_AUTHORISED_USER      = "ERIC-Authorised-User";
     private static final String ERIC_AUTHORISED_ROLES     = "ERIC-Authorised-Roles";
-    private static final String ERIC_AUTHORISED_KEY_ROLES = "ERIC-Authorised-Key-Roles";
 
     public static String getAuthorisedIdentity(HttpServletRequest request) {
         return getRequestHeader(request, AuthenticationHelper.ERIC_IDENTITY);
@@ -46,25 +43,13 @@ public class AuthenticationHelper {
         return roles.split(" ");
     }
 
-    public static boolean isRoleAuthorised(HttpServletRequest request, String role) {
-        if (role == null || role.length() == 0) {
-            return false;
-        }
-
+    public static boolean isRoleAuthorised(HttpServletRequest request) {
         String[] roles = getAuthorisedRolesArray(request);
         if (roles.length == 0) {
             return false;
         }
 
-        return ArrayUtils.contains(roles, role);
-    }
-
-    public static String getAuthorisedKeyRoles(HttpServletRequest request) {
-        return getRequestHeader(request, AuthenticationHelper.ERIC_AUTHORISED_KEY_ROLES);
-    }
-
-    public static boolean isKeyElevatedPrivilegesAuthorised(HttpServletRequest request) {
-        return API_KEY_ELEVATED_ROLE.equals(getAuthorisedKeyRoles(request));
+        return ArrayUtils.contains(roles, AuthenticationHelper.ADMIN_SCOTTISH_BANKRUPT_OFFICER_ROLE);
     }
 
     private static String getRequestHeader(HttpServletRequest request, String header) {
