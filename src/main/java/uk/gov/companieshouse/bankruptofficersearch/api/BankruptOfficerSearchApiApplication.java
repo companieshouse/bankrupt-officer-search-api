@@ -30,7 +30,6 @@ public class BankruptOfficerSearchApiApplication implements WebMvcConfigurer {
         registry.addInterceptor(loggingInterceptor)
                 .excludePathPatterns("/internal/officer-search/scottish-bankrupt-officers/healthcheck");
         registry.addInterceptor(authorisationInterceptor)
-                .addPathPatterns("/internal/officer-search/scottish-bankrupt-officers/**")
                 .excludePathPatterns("/internal/officer-search/scottish-bankrupt-officers/healthcheck");
     }
 }
