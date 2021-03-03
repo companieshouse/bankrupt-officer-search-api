@@ -1,5 +1,6 @@
 package uk.gov.companieshouse.bankruptofficersearch.api.interceptor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -17,10 +18,13 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(APPLICATION_NAME_SPACE);
 
+    @Autowired
+    private AuthenticationHelper authenticationHelper;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-        final boolean authUserHasBadosLookupRole = AuthenticationHelper.isRoleAuthorised(request);
+        final boolean authUserHasBadosLookupRole = authenticationHelper.isRoleAuthorised(request);
 
         if(!authUserHasBadosLookupRole) {
             LOGGER.debugRequest(request, "AuthorisationInterceptor error: no correct role", null);
@@ -28,7 +32,7 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
-        final String identityType = AuthenticationHelper.getAuthorisedIdentityType(request);
+        final String identityType = authenticationHelper.getAuthorisedIdentityType(request);
 
         if (!AuthenticationHelper.OAUTH2_IDENTITY_TYPE.equals(identityType)) {
             LOGGER.debugRequest(request, "AuthorisationInterceptor error: no correct authorised identity type", null);
@@ -36,7 +40,7 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
-        final String identity = AuthenticationHelper.getAuthorisedIdentity(request);
+        final String identity = authenticationHelper.getAuthorisedIdentity(request);
 
         if (identity == null || identity.isEmpty()) {
             LOGGER.debugRequest(request, "AuthorisationInterceptor error: no authorised identity", null);
@@ -50,7 +54,7 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
     private boolean validateOAuth2Identity(HttpServletRequest request, HttpServletResponse response, String identity) {
         request.setAttribute("user_id", identity);
 
-        final String authorisedUser = AuthenticationHelper.getAuthorisedUser(request);
+        final String authorisedUser = authenticationHelper.getAuthorisedUser(request);
 
         if (authorisedUser == null || authorisedUser.trim().length() == 0) {
             LOGGER.debugRequest(request, "AuthorisationInterceptor error: no authorised user", null);

@@ -17,23 +17,32 @@ public class AuthenticationHelper {
     private static final String ERIC_AUTHORISED_USER      = "ERIC-Authorised-User";
     private static final String ERIC_AUTHORISED_ROLES     = "ERIC-Authorised-Roles";
 
-    public static String getAuthorisedIdentity(HttpServletRequest request) {
+    public String getAuthorisedIdentity(HttpServletRequest request) {
         return getRequestHeader(request, AuthenticationHelper.ERIC_IDENTITY);
     }
 
-    public static String getAuthorisedIdentityType(HttpServletRequest request) {
+    public String getAuthorisedIdentityType(HttpServletRequest request) {
         return getRequestHeader(request, AuthenticationHelper.ERIC_IDENTITY_TYPE);
     }
 
-    public static String getAuthorisedUser(HttpServletRequest request) {
+    public String getAuthorisedUser(HttpServletRequest request) {
         return getRequestHeader(request, AuthenticationHelper.ERIC_AUTHORISED_USER);
     }
 
-    public static String getAuthorisedRoles(HttpServletRequest request) {
+    public boolean isRoleAuthorised(HttpServletRequest request) {
+        String[] roles = getAuthorisedRolesArray(request);
+        if (roles.length == 0) {
+            return false;
+        }
+
+        return ArrayUtils.contains(roles, AuthenticationHelper.ADMIN_SCOTTISH_BANKRUPT_OFFICER_ROLE);
+    }
+
+    private String getAuthorisedRoles(HttpServletRequest request) {
         return getRequestHeader(request, AuthenticationHelper.ERIC_AUTHORISED_ROLES);
     }
 
-    public static String[] getAuthorisedRolesArray(HttpServletRequest request) {
+    private String[] getAuthorisedRolesArray(HttpServletRequest request) {
         String roles = getAuthorisedRoles(request);
         if (roles == null || roles.length() == 0) {
             return new String[0];
@@ -43,16 +52,7 @@ public class AuthenticationHelper {
         return roles.split(" ");
     }
 
-    public static boolean isRoleAuthorised(HttpServletRequest request) {
-        String[] roles = getAuthorisedRolesArray(request);
-        if (roles.length == 0) {
-            return false;
-        }
-
-        return ArrayUtils.contains(roles, AuthenticationHelper.ADMIN_SCOTTISH_BANKRUPT_OFFICER_ROLE);
-    }
-
-    private static String getRequestHeader(HttpServletRequest request, String header) {
+    private String getRequestHeader(HttpServletRequest request, String header) {
         return request == null ? null : request.getHeader(header);
     }
 }
