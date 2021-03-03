@@ -40,7 +40,6 @@ class BankruptOfficerSearchApiApplicationTest {
 		doReturn(interceptorRegistration).when(interceptorRegistry).addInterceptor(loggingInterceptor);
 		doReturn(interceptorRegistration).when(interceptorRegistry).addInterceptor(authorisationInterceptor);
 
-		when(interceptorRegistration.addPathPatterns(anyString())).thenReturn(interceptorRegistration);
 		when(interceptorRegistration.excludePathPatterns(anyString())).thenReturn(interceptorRegistration);
 
 		application.addInterceptors(interceptorRegistry);

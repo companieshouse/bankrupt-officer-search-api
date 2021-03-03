@@ -2,6 +2,7 @@ package uk.gov.companieshouse.bankruptofficersearch.api.util;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.Mock;
 
@@ -25,12 +26,15 @@ class AuthenticationHelperTest {
     private static final String ROLE_1 = "role-1";
     private static final String ROLE_2 = "role-2";
 
+    @InjectMocks
+    private AuthenticationHelper authenticationHelper;
+
     @Mock
     private HttpServletRequest request;
 
     @Test
     void testGetAuthorisedIdentityWhenRequestNull() {
-        assertThat(AuthenticationHelper.getAuthorisedIdentity(null), is(nullValue()));
+        assertThat(authenticationHelper.getAuthorisedIdentity(null), is(nullValue()));
     }
 
     @Test
@@ -39,7 +43,7 @@ class AuthenticationHelperTest {
 
         when(request.getHeader(ERIC_IDENTITY)).thenReturn(expected);
 
-        assertThat(AuthenticationHelper.getAuthorisedIdentity(request), is(expected));
+        assertThat(authenticationHelper.getAuthorisedIdentity(request), is(expected));
     }
 
     @Test
@@ -48,7 +52,7 @@ class AuthenticationHelperTest {
 
         when(request.getHeader(ERIC_IDENTITY_TYPE)).thenReturn(expected);
 
-        assertThat(AuthenticationHelper.getAuthorisedIdentityType(request), is(expected));
+        assertThat(authenticationHelper.getAuthorisedIdentityType(request), is(expected));
     }
 
     @Test
@@ -57,56 +61,20 @@ class AuthenticationHelperTest {
 
         when(request.getHeader(ERIC_AUTHORISED_USER)).thenReturn(expected);
 
-        assertThat(AuthenticationHelper.getAuthorisedUser(request), is(expected));
-    }
-
-    @Test
-    void testGetAuthorisedRoles() {
-        final String expected = "authorised-roles";
-
-        when(request.getHeader(ERIC_AUTHORISED_ROLES)).thenReturn(expected);
-
-        assertThat(AuthenticationHelper.getAuthorisedRoles(request), is(expected));
-    }
-
-    @Test
-    void testGetAuthorisedRolesArray() {
-        final String[] expected = new String[]{ROLE_1, ROLE_2};
-
-        when(request.getHeader(ERIC_AUTHORISED_ROLES)).thenReturn(ROLE_1_ROLE_2);
-
-        assertThat(AuthenticationHelper.getAuthorisedRolesArray(request), is(expected));
-    }
-
-    @Test
-    void testGetAuthorisedRolesArrayWhenRolesNull() {
-        final String[] expected = new String[]{};
-
-        when(request.getHeader(ERIC_AUTHORISED_ROLES)).thenReturn(null);
-
-        assertThat(AuthenticationHelper.getAuthorisedRolesArray(request), is(expected));
-    }
-
-    @Test
-    void testGetAuthorisedRolesArrayWhenRolesEmpty() {
-        final String[] expected = new String[]{};
-
-        when(request.getHeader(ERIC_AUTHORISED_ROLES)).thenReturn("");
-
-        assertThat(AuthenticationHelper.getAuthorisedRolesArray(request), is(expected));
+        assertThat(authenticationHelper.getAuthorisedUser(request), is(expected));
     }
 
     @Test
     void testIsRoleAuthorised() {
         when(request.getHeader(ERIC_AUTHORISED_ROLES)).thenReturn(ADMIN_SCOTTISH_BANKRUPT_OFFICER_ROLE);
 
-        assertThat(AuthenticationHelper.isRoleAuthorised(request), is(true));
+        assertThat(authenticationHelper.isRoleAuthorised(request), is(true));
     }
 
     @Test
     void testIsRoleAuthorisedWhenEmpty() {
         when(request.getHeader(ERIC_AUTHORISED_ROLES)).thenReturn("");
 
-        assertThat(AuthenticationHelper.isRoleAuthorised(request), is(false));
+        assertThat(authenticationHelper.isRoleAuthorised(request), is(false));
     }
 }
