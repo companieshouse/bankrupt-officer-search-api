@@ -15,33 +15,35 @@ import uk.gov.companieshouse.bankruptofficersearch.api.transformer.ScottishBankr
 @Service
 public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficerSearchService {
 
-	@Autowired
-	private ScottishBankruptOfficerTransformer scottishBankruptOfficerTransformer;
+    @Autowired
+    private ScottishBankruptOfficerTransformer scottishBankruptOfficerTransformer;
 
-	@Autowired
-	private OracleQueryDaoImpl oracleQueryDao;
+    @Autowired
+    private OracleQueryDaoImpl oracleQueryDao;
 
-	@Override
-	public ScottishBankruptOfficerSearchResults searchScottishBankruptOfficers(ScottishBankruptOfficerSearch search) {
+    @Override
+    public ScottishBankruptOfficerSearchResults searchScottishBankruptOfficers(ScottishBankruptOfficerSearch search) {
 
-	    ScottishBankruptOfficerSearchEntity searchEntity = scottishBankruptOfficerTransformer.convertToSearchEntity(search);
-		ScottishBankruptOfficerSearchResultsEntity details = oracleQueryDao.getScottishBankruptOfficers(searchEntity);
+        ScottishBankruptOfficerSearchEntity searchEntity = scottishBankruptOfficerTransformer.convertToSearchEntity(
+            search);
+        ScottishBankruptOfficerSearchResultsEntity details = oracleQueryDao.getScottishBankruptOfficers(searchEntity);
 
-		if (details == null) {
-		    return null;
+        if (details == null) {
+            return null;
         }
 
-		return scottishBankruptOfficerTransformer.convertToSearchResults(details);
-	}
+        return scottishBankruptOfficerTransformer.convertToSearchResults(details);
+    }
 
-	public ScottishBankruptOfficerDetails getScottishBankruptOfficer(String ephemeralId) {
+    @Override
+    public ScottishBankruptOfficerDetails getScottishBankruptOfficer(String ephemeralId) {
 
-		ScottishBankruptOfficerDetailsEntity officerModel = oracleQueryDao.getScottishBankruptOfficer(ephemeralId);
+        ScottishBankruptOfficerDetailsEntity officerModel = oracleQueryDao.getScottishBankruptOfficer(ephemeralId);
 
-		if (officerModel == null) {
-			return null;
-		}
+        if (officerModel == null) {
+            return null;
+        }
 
-		return scottishBankruptOfficerTransformer.convertToDetails(officerModel);
-	}
+        return scottishBankruptOfficerTransformer.convertToDetails(officerModel);
+    }
 }
