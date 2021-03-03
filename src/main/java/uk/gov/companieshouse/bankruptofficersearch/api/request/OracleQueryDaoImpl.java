@@ -1,16 +1,26 @@
 package uk.gov.companieshouse.bankruptofficersearch.api.request;
 
+import static uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication.APPLICATION_NAME_SPACE;
+
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
+import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
+import uk.gov.companieshouse.logging.Logger;
+import uk.gov.companieshouse.logging.LoggerFactory;
 
 @Component
 public class OracleQueryDaoImpl implements BankruptOfficerDao {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(APPLICATION_NAME_SPACE);
 
     private static final String OFFICERS_URI = "/officer-search/scottish-bankrupt-officers";
 
@@ -28,15 +38,38 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
 
     @Override
     public ScottishBankruptOfficerSearchResultsEntity getScottishBankruptOfficers(final ScottishBankruptOfficerSearchEntity search) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uri", oracleQueryApiUrl + OFFICERS_URI);
+        LOGGER.debug("Calling Oracle Query API to fetch Scottish bankrupt officers", map);
 
-        return restTemplate.postForObject(oracleQueryApiUrl + OFFICERS_URI, search,
-            ScottishBankruptOfficerSearchResultsEntity.class);
+        try {
+            return restTemplate.postForObject(oracleQueryApiUrl + OFFICERS_URI, search,
+                ScottishBankruptOfficerSearchResultsEntity.class);
+        } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                return null;
+            }
+
+            throw new OracleQueryApiException(ex.getStatusCode(), ex.getStatusText());
+        }
     }
 
     @Override
     public ScottishBankruptOfficerDetailsEntity getScottishBankruptOfficer(final String officerId) {
         String uri = OFFICER_URI.expand(officerId).toString();
 
-        return restTemplate.getForObject(oracleQueryApiUrl + uri, ScottishBankruptOfficerDetailsEntity.class);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uri", oracleQueryApiUrl + uri);
+        LOGGER.debug( "Calling Oracle Query API to fetch a Scottish bankrupt officer", map);
+
+        try {
+            return restTemplate.getForObject(oracleQueryApiUrl + uri, ScottishBankruptOfficerDetailsEntity.class);
+        } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                return null;
+            }
+
+            throw new OracleQueryApiException(ex.getStatusCode(), ex.getStatusText());
+        }
     }
 }
