@@ -23,7 +23,7 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
         final boolean authUserHasBadosLookupRole = AuthenticationHelper.isRoleAuthorised(request);
 
         if(!authUserHasBadosLookupRole) {
-            LOGGER.debugRequest(request, "UserAuthenticationInterceptor error: no correct role", null);
+            LOGGER.debugRequest(request, "AuthorisationInterceptor error: no correct role", null);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
@@ -31,7 +31,7 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
         final String identityType = AuthenticationHelper.getAuthorisedIdentityType(request);
 
         if (!AuthenticationHelper.OAUTH2_IDENTITY_TYPE.equals(identityType)) {
-            LOGGER.debugRequest(request, "UserAuthenticationInterceptor error: no correct authorised identity type", null);
+            LOGGER.debugRequest(request, "AuthorisationInterceptor error: no correct authorised identity type", null);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
@@ -39,7 +39,7 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
         final String identity = AuthenticationHelper.getAuthorisedIdentity(request);
 
         if (identity == null || identity.isEmpty()) {
-            LOGGER.debugRequest(request, "UserAuthenticationInterceptor error: no authorised identity", null);
+            LOGGER.debugRequest(request, "AuthorisationInterceptor error: no authorised identity", null);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
