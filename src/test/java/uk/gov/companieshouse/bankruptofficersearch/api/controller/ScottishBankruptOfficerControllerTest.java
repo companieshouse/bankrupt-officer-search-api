@@ -34,10 +34,11 @@ class ScottishBankruptOfficerControllerTest {
     @Test
     @DisplayName("No officers found")
     void testNoOfficersFound(){
-        when(service.searchScottishBankruptOfficers(any(ScottishBankruptOfficerSearch.class))).thenReturn(null);
-
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
+        when(service.searchScottishBankruptOfficers(search)).thenReturn(null);
+
         ResponseEntity<ScottishBankruptOfficerSearchResults> response = controller.searchScottishBankruptOfficers(search);
+
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
@@ -46,17 +47,19 @@ class ScottishBankruptOfficerControllerTest {
     void testOfficersFound(){
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchResults results = new ScottishBankruptOfficerSearchResults();
-        ArrayList<ScottishBankruptOfficerSearchResult> listOfOfficers = new ArrayList<>();
+        ArrayList<ScottishBankruptOfficerSearchResult> officerList = new ArrayList<>();
         ScottishBankruptOfficerSearchResult officer = new ScottishBankruptOfficerSearchResult();
-        listOfOfficers.add(officer);
-        results.setItems(listOfOfficers);
+        officerList.add(officer);
+        results.setItems(officerList);
+
         when(service.searchScottishBankruptOfficers(search)).thenReturn(results);
 
         ResponseEntity<ScottishBankruptOfficerSearchResults> response = controller.searchScottishBankruptOfficers(search);
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(results);
         assertNotNull(results.getItems());
-        assertEquals(officer,results.getItems().get(0));
+        assertEquals(officer, results.getItems().get(0));
     }
 
     @Test
@@ -65,9 +68,11 @@ class ScottishBankruptOfficerControllerTest {
         ScottishBankruptOfficerDetails result = new ScottishBankruptOfficerDetails();
 
         when(service.getScottishBankruptOfficer(EPHEMERAL_KEY)).thenReturn(result);
+
         ResponseEntity<ScottishBankruptOfficerDetails> response = controller.getOfficerById(EPHEMERAL_KEY);
 
-        assertEquals(result,response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(result, response.getBody());
     }
 
     @Test
@@ -76,6 +81,7 @@ class ScottishBankruptOfficerControllerTest {
         ScottishBankruptOfficerDetails search = new ScottishBankruptOfficerDetails();
 
         when(service.getScottishBankruptOfficer(search.getEphemeralKey())).thenReturn(null);
+
         ResponseEntity<ScottishBankruptOfficerDetails> response = controller.getOfficerById(search.getEphemeralKey());
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
