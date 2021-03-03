@@ -27,7 +27,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void testHandleOracleQueryApiException() {
-        ResponseEntity<Object> entity = globalExceptionHandler.handleOracleQueryApiException(new OracleQueryApiException("statusText"));
+        ResponseEntity<Object> entity = globalExceptionHandler.handleOracleQueryApiException(new OracleQueryApiException("statusText", new Throwable()));
 
         assertNotNull(entity);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, entity.getStatusCode());

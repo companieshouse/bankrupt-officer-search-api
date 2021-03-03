@@ -50,7 +50,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
                 return null;
             }
 
-            throw new OracleQueryApiException(ex.getMessage());
+            throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         }
     }
 
@@ -69,7 +69,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
                 return null;
             }
 
-            throw new OracleQueryApiException(ex.getMessage());
+            throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         }
     }
 }

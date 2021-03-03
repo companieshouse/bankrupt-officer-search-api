@@ -31,7 +31,8 @@ public class GlobalExceptionHandler {
         HashMap<String, Object> message = new HashMap<>();
         message.put("message", ex.getMessage());
         message.put("error", ex.getClass());
-        LOGGER.error(ex.getMessage(), message);
+        message.put("stack_trace", ex.getStackTrace());
+        LOGGER.error(ex, message);
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
