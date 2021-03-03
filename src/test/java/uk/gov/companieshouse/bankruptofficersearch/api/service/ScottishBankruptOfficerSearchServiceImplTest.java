@@ -53,42 +53,40 @@ import uk.gov.companieshouse.bankruptofficersearch.api.transformer.ScottishBankr
     @Test
     @DisplayName("Search for bankrupt officers")
     void testScottishBankruptSearch() {
-        ScottishBankruptOfficerSearchFilters filters = new ScottishBankruptOfficerSearchFilters();
-        filters.setForename1(FORENAME);
-        filters.setSurname(SURNAME);
-        filters.setDateOfBirth(DATE_OF_BIRTH);
-        filters.setPostcode(POSTCODE);
+        ScottishBankruptOfficerSearchFilters searchFilters = new ScottishBankruptOfficerSearchFilters();
+        searchFilters.setForename1(FORENAME);
+        searchFilters.setSurname(SURNAME);
+        searchFilters.setDateOfBirth(DATE_OF_BIRTH);
+        searchFilters.setPostcode(POSTCODE);
 
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         search.setStartIndex(START_INDEX);
         search.setItemsPerPage(ITEMS_PER_PAGE);
-        search.setFilters(filters);
+        search.setFilters(searchFilters);
 
         ScottishBankruptOfficerSearchEntity searchEntity = new ScottishBankruptOfficerSearchEntity();
-
         ScottishBankruptOfficerSearchResultsEntity resultsEntity = new ScottishBankruptOfficerSearchResultsEntity();
+        ScottishBankruptOfficerSearchResults expectedSearchResults = new ScottishBankruptOfficerSearchResults();
 
         when(transformer.convertToSearchEntity(search)).thenReturn(searchEntity);
         when(dao.getScottishBankruptOfficers(searchEntity)).thenReturn(resultsEntity);
+        when(transformer.convertToSearchResults(resultsEntity)).thenReturn(expectedSearchResults);
 
-        ArgumentCaptor<ScottishBankruptOfficerSearchResultsEntity> captor = ArgumentCaptor.forClass(ScottishBankruptOfficerSearchResultsEntity.class);
-        verify(dao).getScottishBankruptOfficers(, captor.capture());
-        /*
-        when(dao.getScottishBankruptOfficers(search)).thenReturn()
+        ScottishBankruptOfficerSearchResults searchResults = service.searchScottishBankruptOfficers(search);
+        assertEquals(searchResults, expectedSearchResults);
+    }
 
-        ScottishBankruptOfficerSearchResults expectedResults = new ScottishBankruptOfficerSearchResults();
-        when(transformer.convertToSearchResults()).thenReturn(expectedResults);
-        when(transformer.convertToSearchEntity(search)).thenReturn()
+    @Test
+    @DisplayName("No results returned when retrieving Scottish bankrupt officers")
+    void testNoResultsReturnsForScottishBankruptOfficersSearch(){
+        ScottishBankruptOfficerSearchEntity mockTransformerResponse = new ScottishBankruptOfficerSearchEntity();
+        when(transformer.convertToSearchEntity(any(ScottishBankruptOfficerSearch.class))).thenReturn(mockTransformerResponse);
+        when(dao.getScottishBankruptOfficers(any(ScottishBankruptOfficerSearchEntity.class))).thenReturn(null);
 
-        ScottishBankruptOfficerSearchResults results = service.getScottishBankruptOfficers(search);
-        assertEquals(expectedResults, results);
+        ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
+        ScottishBankruptOfficerSearchResults searchResults = service.searchScottishBankruptOfficers(search);
 
-        ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        verify(dao).getScottishBankruptOfficers(, captor.capture());
-        Pageable pageable = captor.getValue();
-        assertEquals(START_INDEX, pageable.getPageNumber());
-        assertEquals(ITEMS_PER_PAGE, pageable.getPageSize());
-        */
+        assertNull(searchResults);
     }
 
     @Test
@@ -106,19 +104,14 @@ import uk.gov.companieshouse.bankruptofficersearch.api.transformer.ScottishBankr
 
         ScottishBankruptOfficerDetails result = service.getScottishBankruptOfficer(EPHEMERAL_KEY);
         assertEquals(EPHEMERAL_KEY, result.getEphemeralKey());
-
-
     }
 
     @Test
     @DisplayName("No officer found with get by ID")
-    void noOfficerFoundByID(){
+    void testNoOfficerFoundByID(){
         when(dao.getScottishBankruptOfficer(ArgumentMatchers.anyString())).thenReturn(null);
 
         ScottishBankruptOfficerDetails details = service.getScottishBankruptOfficer(EPHEMERAL_KEY);
         assertNull(details);
     }
-
-
-
 }

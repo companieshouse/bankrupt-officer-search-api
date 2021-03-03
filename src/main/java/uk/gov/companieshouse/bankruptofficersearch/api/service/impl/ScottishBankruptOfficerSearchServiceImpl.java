@@ -12,8 +12,6 @@ import uk.gov.companieshouse.bankruptofficersearch.api.request.OracleQueryDaoImp
 import uk.gov.companieshouse.bankruptofficersearch.api.service.BankruptOfficerSearchService;
 import uk.gov.companieshouse.bankruptofficersearch.api.transformer.ScottishBankruptOfficerTransformer;
 
-import java.util.Optional;
-
 @Service
 public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficerSearchService {
 
