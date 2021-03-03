@@ -9,9 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
+import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerDetails;
+import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearch;
+import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchFilters;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResult;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResults;
 
@@ -38,6 +41,8 @@ public class ScottishBankruptOfficerTransformerTest {
     private static final LocalDate DEBTOR_DISCHARGE = LocalDate.now();
     private static final LocalDate TRUSTEE_DISCHARGE_DATE = LocalDate.now();
     private static final LocalDate DATE_OF_BIRTH = LocalDate.now();
+    private static final int START_INDEX = 0;
+    private static final int ITEMS_PER_PAGE = 0;
 
     @BeforeEach
     public void setUp() {
@@ -114,6 +119,30 @@ public class ScottishBankruptOfficerTransformerTest {
         assertEquals(5, convertedList.getTotalResults());
         assertEquals(1, convertedList.getStartIndex());
         assertEquals(1, convertedList.getItemsPerPage());
+    }
+
+    @Test
+    @DisplayName("Convert to search and filter entity")
+    void testConvertToSearchAndFilterEntity() {
+        ScottishBankruptOfficerSearch scottishBankruptOfficerSearch = new ScottishBankruptOfficerSearch();
+
+        ScottishBankruptOfficerSearchFilters filters = new ScottishBankruptOfficerSearchFilters();
+        filters.setForename1(FORENAME1);
+        filters.setSurname(SURNAME);
+        filters.setDateOfBirth(DATE_OF_BIRTH.toString());
+        filters.setPostcode(ADDRESS_POSTCODE);
+
+        scottishBankruptOfficerSearch.setFilters(filters);
+        scottishBankruptOfficerSearch.setStartIndex(START_INDEX);
+        scottishBankruptOfficerSearch.setStartIndex(ITEMS_PER_PAGE);
+        ScottishBankruptOfficerSearchEntity convertedOfficer = transformer.convertToSearchEntity(scottishBankruptOfficerSearch);
+
+        assertEquals(START_INDEX, convertedOfficer.getStartIndex());
+        assertEquals(ITEMS_PER_PAGE, convertedOfficer.getItemsPerPage());
+        assertEquals(filters.getForename1(), convertedOfficer.getFilters().getForename1());
+        assertEquals(filters.getSurname(), convertedOfficer.getFilters().getSurname());
+        assertEquals(filters.getDateOfBirth(), convertedOfficer.getFilters().getDateOfBirth());
+        assertEquals(filters.getPostcode(), convertedOfficer.getFilters().getPostcode());
     }
 
     private ScottishBankruptOfficerDetailsEntity createOfficerEntity() {
