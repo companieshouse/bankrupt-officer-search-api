@@ -2,6 +2,7 @@ package uk.gov.companieshouse.bankruptofficersearch.api.transformer;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchFiltersEntity;
@@ -13,6 +14,7 @@ import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankru
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResult;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResults;
 
+@Component
 public class ScottishBankruptOfficerTransformer {
 
     public ScottishBankruptOfficerSearchResults convertToSearchResults(ScottishBankruptOfficerSearchResultsEntity resultsEntity) {
