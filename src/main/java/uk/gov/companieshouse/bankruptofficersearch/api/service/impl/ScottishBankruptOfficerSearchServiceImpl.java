@@ -28,6 +28,10 @@ public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficer
             search);
         ScottishBankruptOfficerSearchResultsEntity details = oracleQueryDao.getScottishBankruptOfficers(searchEntity);
 
+        if (details == null) {
+            return null;
+        }
+
         return scottishBankruptOfficerTransformer.convertToSearchResults(details);
     }
 
