@@ -3,7 +3,9 @@ package uk.gov.companieshouse.bankruptofficersearch.api.util;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AuthenticationHelper {
 
     private AuthenticationHelper() {
