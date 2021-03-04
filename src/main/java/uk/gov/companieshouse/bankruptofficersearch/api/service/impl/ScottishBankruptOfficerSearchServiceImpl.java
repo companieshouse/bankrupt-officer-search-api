@@ -2,6 +2,7 @@ package uk.gov.companieshouse.bankruptofficersearch.api.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
@@ -22,7 +23,7 @@ public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficer
     private OracleQueryDaoImpl oracleQueryDao;
 
     @Override
-    public ScottishBankruptOfficerSearchResults searchScottishBankruptOfficers(ScottishBankruptOfficerSearch search) {
+    public ScottishBankruptOfficerSearchResults searchScottishBankruptOfficers(ScottishBankruptOfficerSearch search) throws OracleQueryApiException {
 
         ScottishBankruptOfficerSearchEntity searchEntity = scottishBankruptOfficerTransformer.convertToSearchEntity(
             search);
@@ -36,7 +37,7 @@ public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficer
     }
 
     @Override
-    public ScottishBankruptOfficerDetails getScottishBankruptOfficer(String ephemeralId) {
+    public ScottishBankruptOfficerDetails getScottishBankruptOfficer(String ephemeralId) throws OracleQueryApiException {
 
         ScottishBankruptOfficerDetailsEntity officerModel = oracleQueryDao.getScottishBankruptOfficer(ephemeralId);
 

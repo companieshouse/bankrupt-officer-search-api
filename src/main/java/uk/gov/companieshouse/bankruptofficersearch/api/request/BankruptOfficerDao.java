@@ -1,5 +1,6 @@
 package uk.gov.companieshouse.bankruptofficersearch.api.request;
 
+import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
@@ -12,7 +13,7 @@ public interface BankruptOfficerDao {
      * @param search
      * @return searchResultsEntity - matching Scottish bankrupt officers with pagination data
      */
-    ScottishBankruptOfficerSearchResultsEntity getScottishBankruptOfficers(ScottishBankruptOfficerSearchEntity search);
+    ScottishBankruptOfficerSearchResultsEntity getScottishBankruptOfficers(ScottishBankruptOfficerSearchEntity search) throws OracleQueryApiException;
 
     /**
      * Retrieving details for a bankrupt officer
@@ -20,5 +21,5 @@ public interface BankruptOfficerDao {
      * @param officerId
      * @return officerDetailsEntity - details of a single Scottish bankrupt officer
      */
-    ScottishBankruptOfficerDetailsEntity getScottishBankruptOfficer(String officerId);
+    ScottishBankruptOfficerDetailsEntity getScottishBankruptOfficer(String officerId) throws OracleQueryApiException;
 }

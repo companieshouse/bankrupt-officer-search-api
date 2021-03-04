@@ -27,12 +27,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(OracleQueryApiException.class)
     public ResponseEntity<Object> handleOracleQueryApiException(OracleQueryApiException ex) {
-
-        HashMap<String, Object> message = new HashMap<>();
-        message.put("message", ex.getMessage());
-        message.put("error", ex.getClass());
-        message.put("stack_trace", ex.getStackTrace());
-        LOGGER.error(ex, message);
+        LOGGER.error(ex);
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

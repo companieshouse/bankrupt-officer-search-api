@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerDetails;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearch;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResult;
@@ -33,7 +34,7 @@ class ScottishBankruptOfficerControllerTest {
 
     @Test
     @DisplayName("No officers found")
-    void testNoOfficersFound(){
+    void testNoOfficersFound() throws OracleQueryApiException {
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         when(service.searchScottishBankruptOfficers(search)).thenReturn(null);
 
@@ -44,7 +45,7 @@ class ScottishBankruptOfficerControllerTest {
 
     @Test
     @DisplayName("Officers found")
-    void testOfficersFound(){
+    void testOfficersFound() throws OracleQueryApiException {
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchResults results = new ScottishBankruptOfficerSearchResults();
         ArrayList<ScottishBankruptOfficerSearchResult> officerList = new ArrayList<>();
@@ -64,7 +65,7 @@ class ScottishBankruptOfficerControllerTest {
 
     @Test
     @DisplayName("Officer found by id")
-    void testOfficerFoundById(){
+    void testOfficerFoundById() throws OracleQueryApiException {
         ScottishBankruptOfficerDetails result = new ScottishBankruptOfficerDetails();
 
         when(service.getScottishBankruptOfficer(EPHEMERAL_KEY)).thenReturn(result);
@@ -77,7 +78,7 @@ class ScottishBankruptOfficerControllerTest {
 
     @Test
     @DisplayName("No Officer found by id")
-    void testNoOfficerFoundById(){
+    void testNoOfficerFoundById() throws OracleQueryApiException {
         ScottishBankruptOfficerDetails search = new ScottishBankruptOfficerDetails();
 
         when(service.getScottishBankruptOfficer(search.getEphemeralKey())).thenReturn(null);

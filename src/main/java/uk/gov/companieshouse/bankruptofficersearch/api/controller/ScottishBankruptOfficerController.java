@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerDetails;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearch;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResults;
@@ -20,7 +21,7 @@ public class ScottishBankruptOfficerController {
     private ScottishBankruptOfficerSearchServiceImpl service;
 
     @PostMapping("/internal/officer-search/scottish-bankrupt-officers")
-    public ResponseEntity<ScottishBankruptOfficerSearchResults> searchScottishBankruptOfficers(@RequestBody ScottishBankruptOfficerSearch search){
+    public ResponseEntity<ScottishBankruptOfficerSearchResults> searchScottishBankruptOfficers(@RequestBody ScottishBankruptOfficerSearch search) throws OracleQueryApiException {
         ScottishBankruptOfficerSearchResults results = service.searchScottishBankruptOfficers(search);
         if (results == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -29,7 +30,7 @@ public class ScottishBankruptOfficerController {
     }
 
     @GetMapping("/internal/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}")
-    public ResponseEntity<ScottishBankruptOfficerDetails> getOfficerById(@PathVariable("ephemeral_officer_key") String officerId){
+    public ResponseEntity<ScottishBankruptOfficerDetails> getOfficerById(@PathVariable("ephemeral_officer_key") String officerId) throws OracleQueryApiException {
         ScottishBankruptOfficerDetails officer = service.getScottishBankruptOfficer(officerId);
         if (officer == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

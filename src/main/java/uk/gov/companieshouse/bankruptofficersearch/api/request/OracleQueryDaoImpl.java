@@ -37,7 +37,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
     }
 
     @Override
-    public ScottishBankruptOfficerSearchResultsEntity getScottishBankruptOfficers(final ScottishBankruptOfficerSearchEntity search) {
+    public ScottishBankruptOfficerSearchResultsEntity getScottishBankruptOfficers(final ScottishBankruptOfficerSearchEntity search) throws OracleQueryApiException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("uri", oracleQueryApiUrl + OFFICERS_URI);
         LOGGER.debug("Calling Oracle Query API to fetch Scottish bankrupt officers", map);
@@ -46,16 +46,19 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
             return restTemplate.postForObject(oracleQueryApiUrl + OFFICERS_URI, search,
                 ScottishBankruptOfficerSearchResultsEntity.class);
         } catch (HttpClientErrorException ex) {
+            map.put("status_code", ex.getStatusCode());
+
             if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
                 return null;
             }
 
+            LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         }
     }
 
     @Override
-    public ScottishBankruptOfficerDetailsEntity getScottishBankruptOfficer(final String officerId) {
+    public ScottishBankruptOfficerDetailsEntity getScottishBankruptOfficer(final String officerId) throws OracleQueryApiException {
         String uri = OFFICER_URI.expand(officerId).toString();
 
         HashMap<String, Object> map = new HashMap<>();

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
@@ -44,7 +45,7 @@ class ScottishBankruptOfficerSearchServiceImplTest {
 
     @Test
     @DisplayName("Search for bankrupt officers")
-    void testScottishBankruptSearch() {
+    void testScottishBankruptSearch() throws OracleQueryApiException {
         ScottishBankruptOfficerSearchFilters searchFilters = new ScottishBankruptOfficerSearchFilters();
         searchFilters.setForename1(FORENAME);
         searchFilters.setSurname(SURNAME);
@@ -70,7 +71,7 @@ class ScottishBankruptOfficerSearchServiceImplTest {
 
     @Test
     @DisplayName("No results returned when retrieving Scottish bankrupt officers")
-    void testNoResultsReturnsForScottishBankruptOfficersSearch() {
+    void testNoResultsReturnsForScottishBankruptOfficersSearch() throws OracleQueryApiException {
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchEntity mockTransformerResponse = new ScottishBankruptOfficerSearchEntity();
 
@@ -84,7 +85,7 @@ class ScottishBankruptOfficerSearchServiceImplTest {
 
     @Test
     @DisplayName("Search for bankrupt officer by id")
-    void testScottishBankruptSearchByID() {
+    void testScottishBankruptSearchByID() throws OracleQueryApiException {
         ScottishBankruptOfficerDetailsEntity detailsEntity = new ScottishBankruptOfficerDetailsEntity();
         ScottishBankruptOfficerDetails details = new ScottishBankruptOfficerDetails();
 
@@ -97,7 +98,7 @@ class ScottishBankruptOfficerSearchServiceImplTest {
 
     @Test
     @DisplayName("No officer found with get by ID")
-    void testNoOfficerFoundByID() {
+    void testNoOfficerFoundByID() throws OracleQueryApiException {
         when(dao.getScottishBankruptOfficer(EPHEMERAL_KEY)).thenReturn(null);
 
         ScottishBankruptOfficerDetails details = service.getScottishBankruptOfficer(EPHEMERAL_KEY);
