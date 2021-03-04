@@ -49,6 +49,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
             map.put("status_code", ex.getStatusCode());
 
             if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                LOGGER.debug("Oracle query API returned not found", map);
                 return null;
             }
 
@@ -68,10 +69,14 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         try {
             return restTemplate.getForObject(oracleQueryApiUrl + uri, ScottishBankruptOfficerDetailsEntity.class);
         } catch (HttpClientErrorException ex) {
+            map.put("status_code", ex.getStatusCode());
+
             if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                LOGGER.debug("Oracle query API returned not found", map);
                 return null;
             }
 
+            LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         }
     }
