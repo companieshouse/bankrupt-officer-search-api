@@ -21,7 +21,7 @@ public class ScottishBankruptOfficerController {
     private ScottishBankruptOfficerSearchServiceImpl service;
 
     @PostMapping("/internal/officer-search/scottish-bankrupt-officers")
-    public ResponseEntity<ScottishBankruptOfficerSearchResults> searchScottishBankruptOfficers(@RequestBody ScottishBankruptOfficerSearch search) throws ServiceException {
+    public ResponseEntity<ScottishBankruptOfficerSearchResults> searchScottishBankruptOfficers(@RequestBody ScottishBankruptOfficerSearch search) {
         try {
             ScottishBankruptOfficerSearchResults results = service.searchScottishBankruptOfficers(search);
             if (results == null) {
@@ -34,7 +34,7 @@ public class ScottishBankruptOfficerController {
     }
 
     @GetMapping("/internal/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}")
-    public ResponseEntity<ScottishBankruptOfficerDetails> getOfficerById(@PathVariable("ephemeral_officer_key") String officerId) throws ServiceException {
+    public ResponseEntity<ScottishBankruptOfficerDetails> getOfficerById(@PathVariable("ephemeral_officer_key") String officerId){
         try {
             ScottishBankruptOfficerDetails officer = service.getScottishBankruptOfficer(officerId);
             if (officer == null) {
