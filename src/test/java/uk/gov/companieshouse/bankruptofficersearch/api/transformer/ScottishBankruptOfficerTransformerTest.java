@@ -18,7 +18,7 @@ import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankru
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResult;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResults;
 
-public class ScottishBankruptOfficerTransformerTest {
+class ScottishBankruptOfficerTransformerTest {
 
 
     private ScottishBankruptOfficerTransformer transformer;

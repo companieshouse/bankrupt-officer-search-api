@@ -48,7 +48,7 @@ class OracleQueryDaoImplTest {
     }
 
     @Test
-    void testSearchScottishBankruptOfficers() {
+    void testSearchScottishBankruptOfficers() throws OracleQueryApiException {
         ScottishBankruptOfficerSearchResultsEntity searchResults = new ScottishBankruptOfficerSearchResultsEntity();
 
         when(restTemplate.postForObject(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI, searchEntity, ScottishBankruptOfficerSearchResultsEntity.class)).thenReturn(searchResults);
@@ -59,7 +59,7 @@ class OracleQueryDaoImplTest {
     }
 
     @Test
-    void testSearchScottishBankruptOfficersWhenNoResultsReturned() {
+    void testSearchScottishBankruptOfficersWhenNoResultsReturned() throws OracleQueryApiException {
         when(restTemplate.postForObject(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI, searchEntity, ScottishBankruptOfficerSearchResultsEntity.class)).thenThrow(httpClientErrorException);
         when(httpClientErrorException.getStatusCode()).thenReturn(HttpStatus.NOT_FOUND);
 
@@ -77,7 +77,7 @@ class OracleQueryDaoImplTest {
     }
 
     @Test
-    void testGetScottishBankruptOfficer() {
+    void testGetScottishBankruptOfficer() throws OracleQueryApiException {
         ScottishBankruptOfficerDetailsEntity officerDetails = new ScottishBankruptOfficerDetailsEntity();
 
         when(restTemplate.getForObject(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI + "/" + OFFICER_ID, ScottishBankruptOfficerDetailsEntity.class)).thenReturn(officerDetails);
@@ -88,7 +88,7 @@ class OracleQueryDaoImplTest {
     }
 
     @Test
-    void testGetScottishBankruptOfficerWhenOfficerNotFound() {
+    void testGetScottishBankruptOfficerWhenOfficerNotFound() throws OracleQueryApiException {
         when(restTemplate.getForObject(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI + "/" + OFFICER_ID, ScottishBankruptOfficerDetailsEntity.class)).thenThrow(httpClientErrorException);
         when(httpClientErrorException.getStatusCode()).thenReturn(HttpStatus.NOT_FOUND);
 

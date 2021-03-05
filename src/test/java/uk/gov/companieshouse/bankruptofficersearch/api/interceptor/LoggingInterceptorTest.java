@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class LoggingInterceptorTest {
+class LoggingInterceptorTest {
 
     @Mock
     private HttpServletRequest httpServletRequest;
@@ -38,20 +38,20 @@ public class LoggingInterceptorTest {
     private LoggingInterceptor loggingInterceptor;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         when(httpServletRequest.getSession()).thenReturn(session);
     }
 
     @Test
     @DisplayName("Tests the interceptor - preHandle()")
-    public void preHandle() throws JSONException {
+    void preHandle() throws JSONException {
         assertTrue(loggingInterceptor.preHandle(httpServletRequest, httpServletResponse, new Object()));
         verify(session, times(1)).setAttribute(eq(LogContextProperties.START_TIME_KEY.value()), anyLong());
     }
 
     @Test
     @DisplayName("Tests the interceptor - postHandle()")
-    public void postHandle() throws JSONException {
+    void postHandle() throws JSONException {
         long startTime = System.currentTimeMillis();
         when(session.getAttribute(LogContextProperties.START_TIME_KEY.value())).thenReturn(startTime);
         when(httpServletResponse.getStatus()).thenReturn(200);

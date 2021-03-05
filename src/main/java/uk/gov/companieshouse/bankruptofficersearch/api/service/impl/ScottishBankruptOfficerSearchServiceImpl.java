@@ -2,6 +2,8 @@ package uk.gov.companieshouse.bankruptofficersearch.api.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
+import uk.gov.companieshouse.bankruptofficersearch.api.exception.ServiceException;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
@@ -22,28 +24,33 @@ public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficer
     private OracleQueryDaoImpl oracleQueryDao;
 
     @Override
-    public ScottishBankruptOfficerSearchResults searchScottishBankruptOfficers(ScottishBankruptOfficerSearch search) {
+    public ScottishBankruptOfficerSearchResults searchScottishBankruptOfficers(ScottishBankruptOfficerSearch search) throws ServiceException {
 
         ScottishBankruptOfficerSearchEntity searchEntity = scottishBankruptOfficerTransformer.convertToSearchEntity(
             search);
-        ScottishBankruptOfficerSearchResultsEntity details = oracleQueryDao.getScottishBankruptOfficers(searchEntity);
 
-        if (details == null) {
-            return null;
+        try {
+            ScottishBankruptOfficerSearchResultsEntity details = oracleQueryDao.getScottishBankruptOfficers(searchEntity);
+            if (details == null) {
+                return null;
+            }
+            return scottishBankruptOfficerTransformer.convertToSearchResults(details);
+        } catch (OracleQueryApiException ex) {
+            throw new ServiceException(ex);
         }
-
-        return scottishBankruptOfficerTransformer.convertToSearchResults(details);
     }
 
     @Override
-    public ScottishBankruptOfficerDetails getScottishBankruptOfficer(String ephemeralId) {
+    public ScottishBankruptOfficerDetails getScottishBankruptOfficer(String ephemeralId) throws ServiceException {
 
-        ScottishBankruptOfficerDetailsEntity officerModel = oracleQueryDao.getScottishBankruptOfficer(ephemeralId);
-
-        if (officerModel == null) {
-            return null;
+        try {
+            ScottishBankruptOfficerDetailsEntity officerModel = oracleQueryDao.getScottishBankruptOfficer(ephemeralId);
+            if (officerModel == null) {
+                return null;
+            }
+            return scottishBankruptOfficerTransformer.convertToDetails(officerModel);
+        } catch (OracleQueryApiException ex) {
+            throw new ServiceException(ex);
         }
-
-        return scottishBankruptOfficerTransformer.convertToDetails(officerModel);
     }
 }

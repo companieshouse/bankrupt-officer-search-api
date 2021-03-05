@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -29,7 +27,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void testHandleOracleQueryApiException() {
-        ResponseEntity<Object> entity = globalExceptionHandler.handleOracleQueryApiException(new OracleQueryApiException(HttpStatus.INTERNAL_SERVER_ERROR, "statusText"));
+        ResponseEntity<Object> entity = globalExceptionHandler.handleOracleQueryApiException(new OracleQueryApiException("statusText", new Throwable()));
 
         assertNotNull(entity);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, entity.getStatusCode());
