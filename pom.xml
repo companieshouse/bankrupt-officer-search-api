@@ -20,7 +20,7 @@
         <hamcrest-all-version>1.3</hamcrest-all-version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <structured-logging.version>1.5.0-rc2</structured-logging.version>
+        <structured-logging.version>1.9.10</structured-logging.version>
         <spring-boot-dependencies.version>2.1.15.RELEASE</spring-boot-dependencies.version>
         <spring-boot-maven-plugin.version>2.1.15.RELEASE</spring-boot-maven-plugin.version>
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
@@ -34,6 +34,22 @@
                 <version>${spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- remove these 3 log4j once spring boot upgrade is available after 23/12/2021 -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>2.15.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>2.15.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>2.15.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
