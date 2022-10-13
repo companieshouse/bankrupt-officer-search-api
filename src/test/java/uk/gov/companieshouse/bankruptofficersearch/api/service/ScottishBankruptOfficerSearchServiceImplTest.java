@@ -42,7 +42,6 @@ class ScottishBankruptOfficerSearchServiceImplTest {
     private static final String FORENAME = "forename";
     private static final String SURNAME = "surname";
     private static final String ALIAS = "alias";
-
     private static final String DATE_OF_BIRTH = "2020-01-01";
     private static final String POSTCODE = "postcode";
     private static final String EPHEMERAL_KEY = "0123456";
