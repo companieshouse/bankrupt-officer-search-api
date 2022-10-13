@@ -69,6 +69,7 @@ public class ScottishBankruptOfficerTransformer {
         searchResult.setAddressLine3(searchResultEntity.getAddressLine3());
         searchResult.setCounty(searchResultEntity.getCounty());
         searchResult.setTown(searchResultEntity.getTown());
+        searchResult.setDebtorDischargeDate(searchResultEntity.getDebtorDischargeDate());
         return searchResult;
     }
 
