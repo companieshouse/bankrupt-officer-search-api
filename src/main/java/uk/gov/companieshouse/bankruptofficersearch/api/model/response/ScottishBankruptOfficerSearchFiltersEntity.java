@@ -10,6 +10,7 @@ public class ScottishBankruptOfficerSearchFiltersEntity {
 
     private String forename1;
     private String surname;
+    private String alias;
     private String dateOfBirth;
     private String postcode;
 
@@ -28,6 +29,14 @@ public class ScottishBankruptOfficerSearchFiltersEntity {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public String getDateOfBirth() {
