@@ -19,15 +19,6 @@ public class ScottishBankruptOfficerSearchResultEntity {
     private String postcode;
     private LocalDate dateOfBirth;
     private LocalDate debtorDischargeDate;
-    private LocalDate trusteeDischargeDate;
-
-    public LocalDate getTrusteeDischargeDate() {
-        return trusteeDischargeDate;
-    }
-
-    public void setTrusteeDischargeDate(LocalDate trusteeDischargeDate) {
-        this.trusteeDischargeDate = trusteeDischargeDate;
-    }
 
     public String getEphemeralKey() {
         return ephemeralKey;
