@@ -67,6 +67,7 @@ class ScottishBankruptOfficerTransformerTest {
         assertEquals(ADDRESS_COUNTY, convertedOfficer.getCounty());
         assertEquals(ADDRESS_POSTCODE, convertedOfficer.getPostcode());
         assertEquals(DATE_OF_BIRTH, convertedOfficer.getDateOfBirth());
+        assertEquals(DEBTOR_DISCHARGE, convertedOfficer.getDebtorDischargeDate());
 
     }
 
@@ -181,6 +182,7 @@ class ScottishBankruptOfficerTransformerTest {
         searchResultEntity.setForename2(FORENAME2);
         searchResultEntity.setSurname(SURNAME);
         searchResultEntity.setDateOfBirth(DATE_OF_BIRTH);
+        searchResultEntity.setDebtorDischargeDate(DEBTOR_DISCHARGE);
         searchResultEntity.setPostcode(ADDRESS_POSTCODE);
         searchResultEntity.setAddressLine1(ADDRESS_LINE1);
         searchResultEntity.setAddressLine2(ADDRESS_LINE2);

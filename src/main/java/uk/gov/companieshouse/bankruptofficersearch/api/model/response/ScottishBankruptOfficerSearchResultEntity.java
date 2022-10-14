@@ -18,6 +18,7 @@ public class ScottishBankruptOfficerSearchResultEntity {
     private String county;
     private String postcode;
     private LocalDate dateOfBirth;
+    private LocalDate debtorDischargeDate;
 
     public String getEphemeralKey() {
         return ephemeralKey;
@@ -106,4 +107,13 @@ public class ScottishBankruptOfficerSearchResultEntity {
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+    public LocalDate getDebtorDischargeDate() {
+        return debtorDischargeDate;
+    }
+
+    public void setDebtorDischargeDate(LocalDate debtorDischargeDate) {
+        this.debtorDischargeDate = debtorDischargeDate;
+    }
+
 }

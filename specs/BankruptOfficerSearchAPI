@@ -147,6 +147,7 @@ components:
         - town
         - county
         - postcode
+        - debtor_discharge_date
       properties:
         ephemeral_officer_key:
           type: string
@@ -183,6 +184,10 @@ components:
         postcode:
           type: string
           description: The postcode for the address.
+        debtor_discharge_date:
+          type: string
+          description: Date the restrictions are lifted from the bankrupt officer.
+          example: '2020-01-01'
     scottishBankruptOfficer:
       allOf:
         - $ref: '#/components/schemas/scottishBankruptOfficerSearchResult'
