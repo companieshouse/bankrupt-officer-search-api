@@ -41,6 +41,8 @@ class ScottishBankruptOfficerTransformerTest {
     private static final LocalDate DEBTOR_DISCHARGE = LocalDate.now();
     private static final LocalDate TRUSTEE_DISCHARGE_DATE = LocalDate.now();
     private static final LocalDate DATE_OF_BIRTH = LocalDate.now();
+    private static final LocalDate FROM_DATE_OF_BIRTH = LocalDate.now();
+    private static final LocalDate TO_DATE_OF_BIRTH = LocalDate.now();
     private static final int START_INDEX = 0;
     private static final int ITEMS_PER_PAGE = 0;
 
@@ -130,7 +132,8 @@ class ScottishBankruptOfficerTransformerTest {
         ScottishBankruptOfficerSearchFilters filters = new ScottishBankruptOfficerSearchFilters();
         filters.setForename1(FORENAME1);
         filters.setSurname(SURNAME);
-        filters.setDateOfBirth(DATE_OF_BIRTH.toString());
+        filters.setFromDateOfBirth(FROM_DATE_OF_BIRTH.toString());
+        filters.setToDateOfBirth(TO_DATE_OF_BIRTH.toString());
         filters.setPostcode(ADDRESS_POSTCODE);
 
         scottishBankruptOfficerSearch.setFilters(filters);
@@ -142,7 +145,8 @@ class ScottishBankruptOfficerTransformerTest {
         assertEquals(ITEMS_PER_PAGE, convertedOfficer.getItemsPerPage());
         assertEquals(filters.getForename1(), convertedOfficer.getFilters().getForename1());
         assertEquals(filters.getSurname(), convertedOfficer.getFilters().getSurname());
-        assertEquals(filters.getDateOfBirth(), convertedOfficer.getFilters().getDateOfBirth());
+        assertEquals(filters.getFromDateOfBirth(), convertedOfficer.getFilters().getFromDateOfBirth());
+        assertEquals(filters.getToDateOfBirth(), convertedOfficer.getFilters().getToDateOfBirth());
         assertEquals(filters.getPostcode(), convertedOfficer.getFilters().getPostcode());
     }
 

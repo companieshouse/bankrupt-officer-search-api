@@ -2,6 +2,8 @@ package uk.gov.companieshouse.bankruptofficersearch.api.model.response;
 
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 /**
  * Filters to apply when searching for bankrupt officers
  */
@@ -10,7 +12,8 @@ public class ScottishBankruptOfficerSearchFiltersEntity {
 
     private String forename1;
     private String surname;
-    private String dateOfBirth;
+    private String fromDateOfBirth;
+    private String toDateOfBirth;
     private String postcode;
 
 
@@ -30,12 +33,20 @@ public class ScottishBankruptOfficerSearchFiltersEntity {
         this.surname = surname;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public String getFromDateOfBirth() {
+        return fromDateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setFromDateOfBirth(String fromDateOfBirth) {
+        this.fromDateOfBirth = fromDateOfBirth;
+    }
+
+    public String getToDateOfBirth() {
+        return toDateOfBirth;
+    }
+
+    public void setToDateOfBirth(String toDateOfBirth) {
+        this.toDateOfBirth = toDateOfBirth;
     }
 
     public String getPostcode() {
