@@ -2,8 +2,6 @@ package uk.gov.companieshouse.bankruptofficersearch.api.model.response;
 
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 /**
  * Filters to apply when searching for bankrupt officers
  */

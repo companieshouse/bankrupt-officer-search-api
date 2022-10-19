@@ -2,7 +2,6 @@ package uk.gov.companieshouse.bankruptofficersearch.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
 
