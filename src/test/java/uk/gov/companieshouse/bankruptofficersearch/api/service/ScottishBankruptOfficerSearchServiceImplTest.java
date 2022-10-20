@@ -41,10 +41,12 @@ class ScottishBankruptOfficerSearchServiceImplTest {
     private static final int ITEMS_PER_PAGE = 2;
     private static final String FORENAME = "forename";
     private static final String SURNAME = "surname";
-    private static final String FROM_DATE_OF_BIRTH = "2020-01-01";
-    private static final String TO_DATE_OF_BIRTH = "2020-02-02";
+    private static final String DATE_OF_BIRTH = "1975-01-01";
+    private static final String FROM_DATE_OF_BIRTH = "1970-01-01";
+    private static final String TO_DATE_OF_BIRTH = "1980-02-02";
     private static final String POSTCODE = "postcode";
     private static final String EPHEMERAL_KEY = "0123456";
+
 
 
     @Test
@@ -75,18 +77,80 @@ class ScottishBankruptOfficerSearchServiceImplTest {
     }
 
     @Test
-    @DisplayName("No results returned when retrieving Scottish bankrupt officers")
-    void testNoResultsReturnsForScottishBankruptOfficersSearch() throws OracleQueryApiException, ServiceException  {
-        ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
-        ScottishBankruptOfficerSearchEntity mockTransformerResponse = new ScottishBankruptOfficerSearchEntity();
+    @DisplayName("Results returned when searching for Scottish bankrupt officers using DOB range filters")
+    void testResultsReturnsForScottishBankruptOfficersSearchWithDOBFilters() throws OracleQueryApiException, ServiceException  {
+        ScottishBankruptOfficerSearchFilters searchFilters = new ScottishBankruptOfficerSearchFilters();
+        searchFilters.setFromDateOfBirth("1970-01-01");
+        searchFilters.setToDateOfBirth("1980-01-01");
 
-        when(transformer.convertToSearchEntity(search)).thenReturn(mockTransformerResponse);
-        when(dao.getScottishBankruptOfficers(mockTransformerResponse)).thenReturn(null);
+        ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
+        search.setStartIndex(START_INDEX);
+        search.setItemsPerPage(ITEMS_PER_PAGE);
+        search.setFilters(searchFilters);
+
+        ScottishBankruptOfficerSearchEntity searchEntity = new ScottishBankruptOfficerSearchEntity();
+        ScottishBankruptOfficerSearchResultsEntity resultsEntity = new ScottishBankruptOfficerSearchResultsEntity();
+        ScottishBankruptOfficerSearchResults expectedSearchResults = new ScottishBankruptOfficerSearchResults();
+
+        when(transformer.convertToSearchEntity(search)).thenReturn(searchEntity);
+        when(dao.getScottishBankruptOfficers(searchEntity)).thenReturn(resultsEntity);
+        when(transformer.convertToSearchResults(resultsEntity)).thenReturn(expectedSearchResults);
 
         ScottishBankruptOfficerSearchResults searchResults = service.searchScottishBankruptOfficers(search);
-
-        assertNull(searchResults);
+        assertEquals(expectedSearchResults, searchResults);
     }
+
+
+    @Test
+    @DisplayName("Results returned when searching for Scottish bankrupt officers using From DOB filters")
+    void testResultsReturnsForScottishBankruptOfficersSearchWithFromFilters() throws OracleQueryApiException, ServiceException  {
+        ScottishBankruptOfficerSearchFilters searchFilters = new ScottishBankruptOfficerSearchFilters();
+
+        searchFilters.setFromDateOfBirth(FROM_DATE_OF_BIRTH);
+        ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
+        search.setStartIndex(START_INDEX);
+        search.setItemsPerPage(ITEMS_PER_PAGE);
+        search.setFilters(searchFilters);
+
+
+        ScottishBankruptOfficerSearchEntity searchEntity = new ScottishBankruptOfficerSearchEntity();
+        ScottishBankruptOfficerSearchResultsEntity resultsEntity = new ScottishBankruptOfficerSearchResultsEntity();
+        ScottishBankruptOfficerSearchResults expectedSearchResults = new ScottishBankruptOfficerSearchResults();
+
+        when(transformer.convertToSearchEntity(search)).thenReturn(searchEntity);
+        when(dao.getScottishBankruptOfficers(searchEntity)).thenReturn(resultsEntity);
+        when(transformer.convertToSearchResults(resultsEntity)).thenReturn(expectedSearchResults);
+
+
+
+        ScottishBankruptOfficerSearchResults searchResults = service.searchScottishBankruptOfficers(search);
+        assertEquals(expectedSearchResults, searchResults);
+    }
+
+    @Test
+    @DisplayName("Results returned when searching for Scottish bankrupt officers using To DOB filters")
+    void testResultsReturnsForScottishBankruptOfficersSearchWithToFilters() throws OracleQueryApiException, ServiceException  {
+        ScottishBankruptOfficerSearchFilters searchFilters = new ScottishBankruptOfficerSearchFilters();
+
+        searchFilters.setToDateOfBirth(TO_DATE_OF_BIRTH);
+        ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
+        search.setStartIndex(START_INDEX);
+        search.setItemsPerPage(ITEMS_PER_PAGE);
+        search.setFilters(searchFilters);
+
+
+        ScottishBankruptOfficerSearchEntity searchEntity = new ScottishBankruptOfficerSearchEntity();
+        ScottishBankruptOfficerSearchResultsEntity resultsEntity = new ScottishBankruptOfficerSearchResultsEntity();
+        ScottishBankruptOfficerSearchResults expectedSearchResults = new ScottishBankruptOfficerSearchResults();
+
+        when(transformer.convertToSearchEntity(search)).thenReturn(searchEntity);
+        when(dao.getScottishBankruptOfficers(searchEntity)).thenReturn(resultsEntity);
+        when(transformer.convertToSearchResults(resultsEntity)).thenReturn(expectedSearchResults);
+
+        ScottishBankruptOfficerSearchResults searchResults = service.searchScottishBankruptOfficers(search);
+        assertEquals(expectedSearchResults, searchResults);
+    }
+
 
     @Test
     @DisplayName("Scottish bankrupt officers search - throws a ServiceException")
