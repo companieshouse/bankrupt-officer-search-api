@@ -32,9 +32,6 @@ public class ScottishBankruptOfficerSearchFiltersEntity {
         this.surname = surname;
     }
 
-    public String getFromDateOfBirth() {
-        return fromDateOfBirth;
-
     public String getAlias() {
         return alias;
     }
@@ -45,7 +42,6 @@ public class ScottishBankruptOfficerSearchFiltersEntity {
 
   public String getFromDateOfBirth() {
         return fromDateOfBirth;
-
     }
 
     public void setFromDateOfBirth(String fromDateOfBirth) {
