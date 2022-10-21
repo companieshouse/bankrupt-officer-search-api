@@ -88,8 +88,9 @@ public class ScottishBankruptOfficerTransformer {
 
         filtersEntity.setForename1(filters.getForename1());
         filtersEntity.setSurname(filters.getSurname());
+        filtersEntity.setFromDateOfBirth(filters.getFromDateOfBirth());
+        filtersEntity.setToDateOfBirth(filters.getToDateOfBirth());
         filtersEntity.setAlias(filters.getAlias());
-        filtersEntity.setDateOfBirth(filters.getDateOfBirth());
         filtersEntity.setPostcode(filters.getPostcode());
 
         return filtersEntity;
