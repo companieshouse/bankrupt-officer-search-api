@@ -12,6 +12,7 @@ public class ScottishBankruptOfficerSearchFiltersEntity {
     private String surname;
     private String fromDateOfBirth;
     private String toDateOfBirth;
+    private String alias;
     private String postcode;
 
 
@@ -33,6 +34,18 @@ public class ScottishBankruptOfficerSearchFiltersEntity {
 
     public String getFromDateOfBirth() {
         return fromDateOfBirth;
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+  public String getFromDateOfBirth() {
+        return fromDateOfBirth;
+
     }
 
     public void setFromDateOfBirth(String fromDateOfBirth) {

@@ -134,6 +134,7 @@ class ScottishBankruptOfficerTransformerTest {
         filters.setSurname(SURNAME);
         filters.setFromDateOfBirth(FROM_DATE_OF_BIRTH.toString());
         filters.setToDateOfBirth(TO_DATE_OF_BIRTH.toString());
+        filters.setAlias(ALIAS);
         filters.setPostcode(ADDRESS_POSTCODE);
 
         scottishBankruptOfficerSearch.setFilters(filters);
@@ -147,6 +148,7 @@ class ScottishBankruptOfficerTransformerTest {
         assertEquals(filters.getSurname(), convertedOfficer.getFilters().getSurname());
         assertEquals(filters.getFromDateOfBirth(), convertedOfficer.getFilters().getFromDateOfBirth());
         assertEquals(filters.getToDateOfBirth(), convertedOfficer.getFilters().getToDateOfBirth());
+        assertEquals(filters.getAlias(), convertedOfficer.getFilters().getAlias());
         assertEquals(filters.getPostcode(), convertedOfficer.getFilters().getPostcode());
     }
 

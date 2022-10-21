@@ -44,6 +44,7 @@ class ScottishBankruptOfficerSearchServiceImplTest {
     private static final String DATE_OF_BIRTH = "1975-01-01";
     private static final String FROM_DATE_OF_BIRTH = "1970-01-01";
     private static final String TO_DATE_OF_BIRTH = "1980-02-02";
+    private static final String ALIAS = "alias";
     private static final String POSTCODE = "postcode";
     private static final String EPHEMERAL_KEY = "0123456";
 
@@ -57,6 +58,7 @@ class ScottishBankruptOfficerSearchServiceImplTest {
         searchFilters.setSurname(SURNAME);
         searchFilters.setFromDateOfBirth(FROM_DATE_OF_BIRTH);
         searchFilters.setToDateOfBirth(TO_DATE_OF_BIRTH);
+        searchFilters.setAlias(ALIAS);
         searchFilters.setPostcode(POSTCODE);
 
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
