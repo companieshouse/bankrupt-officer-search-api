@@ -41,6 +41,7 @@ class ScottishBankruptOfficerSearchServiceImplTest {
     private static final int ITEMS_PER_PAGE = 2;
     private static final String FORENAME = "forename";
     private static final String SURNAME = "surname";
+    private static final String ALIAS = "alias";
     private static final String DATE_OF_BIRTH = "2020-01-01";
     private static final String POSTCODE = "postcode";
     private static final String EPHEMERAL_KEY = "0123456";
@@ -52,6 +53,7 @@ class ScottishBankruptOfficerSearchServiceImplTest {
         ScottishBankruptOfficerSearchFilters searchFilters = new ScottishBankruptOfficerSearchFilters();
         searchFilters.setForename1(FORENAME);
         searchFilters.setSurname(SURNAME);
+        searchFilters.setAlias(ALIAS);
         searchFilters.setDateOfBirth(DATE_OF_BIRTH);
         searchFilters.setPostcode(POSTCODE);
 
