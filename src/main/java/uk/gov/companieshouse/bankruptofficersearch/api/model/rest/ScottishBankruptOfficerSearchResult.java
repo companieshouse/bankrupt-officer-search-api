@@ -20,7 +20,7 @@ public class ScottishBankruptOfficerSearchResult {
     private String postcode;
     private LocalDate dateOfBirth;
     private LocalDate debtorDischargeDate;
-
+    private String caseType;
 
     public String getEphemeralKey() {
         return ephemeralKey;
@@ -116,5 +116,13 @@ public class ScottishBankruptOfficerSearchResult {
 
     public void setDebtorDischargeDate(LocalDate debtorDischargeDate) {
         this.debtorDischargeDate = debtorDischargeDate;
+    }
+
+    public String getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(String caseType) {
+        this.caseType = caseType;
     }
 }
