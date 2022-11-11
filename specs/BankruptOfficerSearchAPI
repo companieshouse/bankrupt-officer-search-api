@@ -89,8 +89,8 @@ components:
       type: object
       required:
         - surname
-        - fromDate_of_birth
-        - toDate_of_birth
+        - date_of_birth_from
+        - date_of_birth_to
       properties:
         forename1:
           type: string
