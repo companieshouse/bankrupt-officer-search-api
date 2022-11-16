@@ -24,7 +24,7 @@
         <spring-boot-dependencies.version>2.1.15.RELEASE</spring-boot-dependencies.version>
         <spring-boot-maven-plugin.version>2.1.15.RELEASE</spring-boot-maven-plugin.version>
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
-        <jackson.version>2.10.3</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
     </properties>
 
