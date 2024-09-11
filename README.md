@@ -3,7 +3,8 @@
 API handling bankrupt officer search
 
 ### Requirements
-* [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)* [Maven][2]
+* [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
+* [Maven][2]
 * [Git][3]
 
 ### Getting Started
