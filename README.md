@@ -3,7 +3,7 @@
 API handling bankrupt officer search
 
 ### Requirements
-* [Java 8][1]
+* [Java 21][1]
 * [Maven][2]
 * [Git][3]
 
@@ -24,7 +24,7 @@ POST | `/internal/officer-search/scottish-bankrupt-officers` | Returns search re
 GET | `/internal/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}` | Returns a result for a Scottish bankrupt officer
 GET | `/internal/officer-search/scottish-bankrupt-officers/healthcheck` | GET | Returns HTTP OK (`200`) to indicate a healthy application instance.
 
-[1]: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+[1]: https://www.oracle.com/java/technologies/downloads/#java21
 [2]: https://maven.apache.org/download.cgi
 [3]: https://git-scm.com/downloads
 
