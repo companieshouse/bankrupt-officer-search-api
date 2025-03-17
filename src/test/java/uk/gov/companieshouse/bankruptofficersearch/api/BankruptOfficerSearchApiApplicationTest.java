@@ -20,7 +20,6 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@Import(WebMvcConfig.class)
 class BankruptOfficerSearchApiApplicationTest {
 
 	@Mock
