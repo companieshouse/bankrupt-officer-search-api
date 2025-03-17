@@ -7,8 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import uk.gov.companieshouse.bankruptofficersearch.api.config.WebMvcConfig;
 import uk.gov.companieshouse.bankruptofficersearch.api.interceptor.AuthorisationInterceptor;
 import uk.gov.companieshouse.bankruptofficersearch.api.interceptor.LoggingInterceptor;
 
@@ -33,7 +35,7 @@ class BankruptOfficerSearchApiApplicationTest {
 	private InterceptorRegistration interceptorRegistration;
 
 	@InjectMocks
-	private BankruptOfficerSearchApiApplication application;
+	private WebMvcConfig config;
 
 	@Test
 	void testAddInterceptors() {
@@ -42,7 +44,7 @@ class BankruptOfficerSearchApiApplicationTest {
 
 		when(interceptorRegistration.excludePathPatterns(anyString())).thenReturn(interceptorRegistration);
 
-		application.addInterceptors(interceptorRegistry);
+        config.addInterceptors(interceptorRegistry);
 
 		InOrder inOrder = Mockito.inOrder(interceptorRegistry);
 		inOrder.verify(interceptorRegistry).addInterceptor(loggingInterceptor);
