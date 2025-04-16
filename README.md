@@ -18,11 +18,11 @@ To run this service locally via a local Docker environment:
 
 ### Endpoints
 
-Method | Path | Description
---- | --- | ---
-POST | `/internal/officer-search/scottish-bankrupt-officers` | Returns search results for Scottish bankrupt officers
-GET | `/internal/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}` | Returns a result for a Scottish bankrupt officer
-GET | `/internal/officer-search/scottish-bankrupt-officers/healthcheck` | GET | Returns HTTP OK (`200`) to indicate a healthy application instance.
+| Method | Path                                                                          | Description                                           |
+|--------|-------------------------------------------------------------------------------|-------------------------------------------------------|
+| POST   | `/internal/officer-search/scottish-bankrupt-officers`                         | Returns search results for Scottish bankrupt officers |
+| GET    | `/internal/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}` | Returns a result for a Scottish bankrupt officer      |
+| GET    | `/internal/officer-search/scottish-bankrupt-officers/healthcheck`             | GET                                                   | Returns HTTP OK (`200`) to indicate a healthy application instance.
 
 [1]: https://www.oracle.com/java/technologies/downloads/#java21
 [2]: https://maven.apache.org/download.cgi
@@ -30,9 +30,9 @@ GET | `/internal/officer-search/scottish-bankrupt-officers/healthcheck` | GET | 
 
 ### Config Variable
 
-Key | Example Value | Description
---- | --- | ---
-`ORACLE_QUERY_API_URL` | http://oracle-query:123 | URL of the Oracle Query API to retrieve data from Oracle DB
+| Key                    | Example Value           | Description                                                 |
+|------------------------|-------------------------|-------------------------------------------------------------|
+| `ORACLE_QUERY_API_URL` | http://oracle-query:123 | URL of the Oracle Query API to retrieve data from Oracle DB |
 
 ## Terraform ECS
 
@@ -42,12 +42,11 @@ The code present in this repository is used to define and deploy a dockerised co
 This is done by calling a [module](https://github.com/companieshouse/terraform-modules/tree/main/aws/ecs) from terraform-modules. Application specific attributes are injected and the service is then deployed using Terraform via the CICD platform 'Concourse'.
 
 
-Application specific attributes | Value                                | Description
-:---------|:-----------------------------------------------------------------------------|:-----------
-**ECS Cluster**        |search-service                                      | ECS cluster (stack) the service belongs to
-**Load balancer**      |{env}-chs-internalapi                          | The load balancer that sits in front of the service
-**Concourse pipeline**     |[Pipeline link](https://ci-platform.companieshouse.gov.uk/teams/team-development/pipelines/bankrupt-officer-search-api ) <br> [Pipeline code](https://github.com/companieshouse/ci-pipelines/blob/master/pipelines/ssplatform/team-development/bankrupt-officer-search-api)                                  | Concourse pipeline link in shared services
-
+| Application specific attributes | Value                                                                                                                                                                                                                                                                       | Description                                         |
+|:--------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------|
+| **ECS Cluster**                 | search-service                                                                                                                                                                                                                                                              | ECS cluster (stack) the service belongs to          |
+| **Load balancer**               | {env}-chs-internalapi                                                                                                                                                                                                                                                       | The load balancer that sits in front of the service |
+| **Concourse pipeline**          | [Pipeline link](https://ci-platform.companieshouse.gov.uk/teams/team-development/pipelines/bankrupt-officer-search-api ) <br> [Pipeline code](https://github.com/companieshouse/ci-pipelines/blob/master/pipelines/ssplatform/team-development/bankrupt-officer-search-api) | Concourse pipeline link in shared services          |
 
 ### Contributing
 - Please refer to the [ECS Development and Infrastructure Documentation](https://companieshouse.atlassian.net/wiki/spaces/DEVOPS/pages/4390649858/Copy+of+ECS+Development+and+Infrastructure+Documentation+Updated) for detailed information on the infrastructure being deployed.
