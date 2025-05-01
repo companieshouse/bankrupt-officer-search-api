@@ -1,0 +1,17 @@
+{
+    "type": "Service",
+    "name": "bankrupt-officer-search-api",
+    "description": "API handling bankrupt officer search",
+    "owned_by": "Titans",
+    "git_repo": "https://github.com/companieshouse/bankrupt-officer-search-api",
+    "specification":"https://raw.githubusercontent.com/companieshouse/bankrupt-officer-search-api/main/specs/BankruptOfficerSearchAPI",
+    "public": "false",
+    "users": "internal",
+    "code_analysis_link": "http://code-analysis.platform.aws.chdev.org:9000/dashboard?id=uk.gov.companieshouse%3Abankrupt-officer-search-api#",    
+    "service_area": "Intelligence and Enforcement",
+    "service_component": "Bankruptcy & Dissolution",
+    "language": "Java",
+    "integration_outgoing": [      
+      "oracle-query-api,CALLS_API"
+    ]
+  }
