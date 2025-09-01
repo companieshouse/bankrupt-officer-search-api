@@ -50,10 +50,8 @@ public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficer
                 return null;
             }
             return scottishBankruptOfficerTransformer.convertToDetails(officerModel);
-        } catch (OracleQueryApiException ex) {
+        } catch (OracleQueryApiException | URIValidationException ex) {
             throw new ServiceException(ex);
-        } catch (URIValidationException ex) {
-            throw new RuntimeException(ex);
         }
     }
 }
