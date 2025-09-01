@@ -2,11 +2,12 @@ package uk.gov.companieshouse.bankruptofficersearch.api.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uk.gov.companieshouse.api.handler.exception.URIValidationException;
 import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
 import uk.gov.companieshouse.bankruptofficersearch.api.exception.ServiceException;
-import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerDetailsEntity;
-import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchEntity;
-import uk.gov.companieshouse.bankruptofficersearch.api.model.response.ScottishBankruptOfficerSearchResultsEntity;
+import uk.gov.companieshouse.api.model.bankruptofficer.ScottishBankruptOfficerDetailsEntity;
+import uk.gov.companieshouse.api.model.bankruptofficer.ScottishBankruptOfficerSearchEntity;
+import uk.gov.companieshouse.api.model.bankruptofficer.ScottishBankruptOfficerSearchResultsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerDetails;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearch;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResults;
@@ -35,7 +36,7 @@ public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficer
                 return null;
             }
             return scottishBankruptOfficerTransformer.convertToSearchResults(details);
-        } catch (OracleQueryApiException ex) {
+        } catch (OracleQueryApiException | URIValidationException ex) {
             throw new ServiceException(ex);
         }
     }
@@ -49,7 +50,7 @@ public class ScottishBankruptOfficerSearchServiceImpl implements BankruptOfficer
                 return null;
             }
             return scottishBankruptOfficerTransformer.convertToDetails(officerModel);
-        } catch (OracleQueryApiException ex) {
+        } catch (OracleQueryApiException | URIValidationException ex) {
             throw new ServiceException(ex);
         }
     }
