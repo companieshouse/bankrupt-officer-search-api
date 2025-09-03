@@ -93,7 +93,7 @@ class OracleQueryDaoImplTest {
 
         when(apiSdkClient.getInternalApiClient()).thenReturn(internalApiClient);
         when(internalApiClient.privateBankruptOfficerSearchHandler()).thenReturn(privateBankruptOfficerSearchHandler);
-        when(privateBankruptOfficerSearchHandler.getScottishBankruptOfficers(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI, searchEntity)).thenReturn(privateBankruptOfficersSearch);
+        when(privateBankruptOfficerSearchHandler.getScottishBankruptOfficers( OFFICERS_URI, searchEntity)).thenReturn(privateBankruptOfficersSearch);
         when(privateBankruptOfficersSearch.execute()).thenReturn(scottishBankruptOfficerSearchResultsApiResponse);
         when(scottishBankruptOfficerSearchResultsApiResponse.getData()).thenReturn(searchResults);
 
@@ -108,7 +108,7 @@ class OracleQueryDaoImplTest {
 
         when(apiSdkClient.getInternalApiClient()).thenReturn(internalApiClient);
         when(internalApiClient.privateBankruptOfficerSearchHandler()).thenReturn(privateBankruptOfficerSearchHandler);
-        when(privateBankruptOfficerSearchHandler.getScottishBankruptOfficers(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI, searchEntity)).thenReturn(privateBankruptOfficersSearch);
+        when(privateBankruptOfficerSearchHandler.getScottishBankruptOfficers( OFFICERS_URI, searchEntity)).thenReturn(privateBankruptOfficersSearch);
         when(privateBankruptOfficersSearch.execute()).thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
 
 
@@ -122,7 +122,7 @@ class OracleQueryDaoImplTest {
 
         when(apiSdkClient.getInternalApiClient()).thenReturn(internalApiClient);
         when(internalApiClient.privateBankruptOfficerSearchHandler()).thenReturn(privateBankruptOfficerSearchHandler);
-        when(privateBankruptOfficerSearchHandler.getScottishBankruptOfficers(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI, searchEntity)).thenReturn(privateBankruptOfficersSearch);
+        when(privateBankruptOfficerSearchHandler.getScottishBankruptOfficers( OFFICERS_URI, searchEntity)).thenReturn(privateBankruptOfficersSearch);
         when(privateBankruptOfficersSearch.execute()).thenThrow(new ApiErrorResponseException(new HttpResponseException.Builder(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error", new HttpHeaders())));
 
@@ -135,7 +135,7 @@ class OracleQueryDaoImplTest {
 
         when(apiSdkClient.getInternalApiClient()).thenReturn(internalApiClient);
         when(internalApiClient.privateBankruptOfficerSearchHandler()).thenReturn(privateBankruptOfficerSearchHandler);
-        when(privateBankruptOfficerSearchHandler.getSingleScottishBankruptOfficer(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI + "/" + OFFICER_ID)).thenReturn(privateSingleBankruptOfficerSearch);
+        when(privateBankruptOfficerSearchHandler.getSingleScottishBankruptOfficer(OFFICERS_URI + "/" + OFFICER_ID)).thenReturn(privateSingleBankruptOfficerSearch);
         when(privateSingleBankruptOfficerSearch.execute()).thenReturn(scottishBankruptOfficerDetailsEntityApiResponse);
         when(scottishBankruptOfficerDetailsEntityApiResponse.getData()).thenReturn(officerDetails);
 
@@ -165,7 +165,7 @@ class OracleQueryDaoImplTest {
 
         when(apiSdkClient.getInternalApiClient()).thenReturn(internalApiClient);
         when(internalApiClient.privateBankruptOfficerSearchHandler()).thenReturn(privateBankruptOfficerSearchHandler);
-        when(privateBankruptOfficerSearchHandler.getSingleScottishBankruptOfficer(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI + "/" + OFFICER_ID)).thenReturn(privateSingleBankruptOfficerSearch);
+        when(privateBankruptOfficerSearchHandler.getSingleScottishBankruptOfficer( OFFICERS_URI + "/" + OFFICER_ID)).thenReturn(privateSingleBankruptOfficerSearch);
         when(privateSingleBankruptOfficerSearch.execute()).thenThrow(new ApiErrorResponseException(new HttpResponseException.Builder(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error", new HttpHeaders())));
 

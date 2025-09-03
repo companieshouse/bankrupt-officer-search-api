@@ -58,7 +58,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
             var internalApiClient = apiSdkClient.getInternalApiClient();
             internalApiClient.setBasePath(oracleQueryApiUrl);
             return internalApiClient.privateBankruptOfficerSearchHandler()
-                    .getScottishBankruptOfficers(oracleQueryApiUrl + OFFICERS_URI, search)
+                    .getScottishBankruptOfficers(OFFICERS_URI, search)
                     .execute()
                     .getData();
         }
@@ -95,7 +95,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
             var internalApiClient = apiSdkClient.getInternalApiClient();
             internalApiClient.setBasePath(oracleQueryApiUrl);
             return internalApiClient.privateBankruptOfficerSearchHandler()
-                    .getSingleScottishBankruptOfficer(oracleQueryApiUrl + uri)
+                    .getSingleScottishBankruptOfficer(uri)
                     .execute()
                     .getData();
         } catch (ApiErrorResponseException ex) {
