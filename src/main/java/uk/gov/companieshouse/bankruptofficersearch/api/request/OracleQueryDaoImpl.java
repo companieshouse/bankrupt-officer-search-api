@@ -92,7 +92,6 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         try {
 
             var internalApiClient = apiSdkClient.getInternalApiClient();
-            internalApiClient.setBasePath(oracleQueryApiUrl);
             return internalApiClient.privateBankruptOfficerSearchHandler()
                     .getSingleScottishBankruptOfficer(uri)
                     .execute()
