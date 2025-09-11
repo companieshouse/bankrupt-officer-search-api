@@ -2,6 +2,7 @@ package uk.gov.companieshouse.bankruptofficersearch.api.request;
 
 import static uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication.APPLICATION_NAME_SPACE;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,6 +55,8 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         LOGGER.debug("Calling Oracle Query API to fetch Scottish bankrupt officers", map);
 
         try {
+            LOGGER.info("uri: " + OFFICERS_URI + " Oracle URL " +  oracleQueryApiUrl);
+            LOGGER.info("search: " + search.toString());
 
             var internalApiClient = apiSdkClient.getInternalApiClient();
             return internalApiClient.privateBankruptOfficerSearchHandler()
@@ -90,6 +93,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         map.put("uri", oracleQueryApiUrl + uri);
 
         try {
+            LOGGER.info("uri: " + uri + " Oracle URL " +  oracleQueryApiUrl);
 
             var internalApiClient = apiSdkClient.getInternalApiClient();
             return internalApiClient.privateBankruptOfficerSearchHandler()
@@ -104,7 +108,6 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
             throw new URIValidationException(ex.getMessage(), ex.getCause());
         } catch (HttpClientErrorException ex) {
             map.put("status_code", ex.getStatusCode());
-
             if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
                 LOGGER.debug("Oracle query API returned not found", map);
                 return null;
