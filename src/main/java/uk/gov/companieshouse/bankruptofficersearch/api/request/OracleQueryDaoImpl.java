@@ -52,7 +52,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
     public ScottishBankruptOfficerSearchResultsEntity getScottishBankruptOfficers(final ScottishBankruptOfficerSearchEntity search) throws OracleQueryApiException, URIValidationException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("uri", OFFICERS_URI);
-        LOGGER.debug("Calling Oracle Query API through SDK to fetch Scottish bankrupt officers for search query", map);
+        LOGGER.debug("Calling Oracle Query API through SDK to fetch Scottish bankrupt officers using search query", map);
 
         try {
 
@@ -88,7 +88,7 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         String uri = OFFICER_URI.expand(officerId).toString();
         HashMap<String, Object> map = new HashMap<>();
         map.put("uri", uri);
-        LOGGER.debug("Calling Oracle Query API through SDK to fetch single Scottish bankrupt officer for ID", map);
+        LOGGER.debug("Calling Oracle Query API through SDK to fetch single Scottish bankrupt officer using ID", map);
 
         try {
 
