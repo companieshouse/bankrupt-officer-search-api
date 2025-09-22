@@ -68,17 +68,17 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
             map.put("status_code", ex.getStatusCode());
             LOGGER.error(ex, map);
 
+            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                LOGGER.debug("Oracle query API returned not found", map);
+                return null;
+            }
+
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         } catch (URIValidationException ex) {
             throw new URIValidationException(ex.getMessage(), ex.getCause());
         }
         catch (HttpClientErrorException ex) {
             map.put("status_code", ex.getStatusCode());
-
-            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-                LOGGER.debug("Oracle query API returned not found", map);
-                return null;
-            }
 
             LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
@@ -103,15 +103,15 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         } catch (ApiErrorResponseException ex) {
             map.put("status_code", ex.getStatusCode());
             LOGGER.error(ex, map);
+            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                LOGGER.debug("Oracle query API returned not found", map);
+                return null;
+            }
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         } catch (URIValidationException ex) {
             throw new URIValidationException(ex.getMessage(), ex.getCause());
         } catch (HttpClientErrorException ex) {
             map.put("status_code", ex.getStatusCode());
-            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-                LOGGER.debug("Oracle query API returned not found", map);
-                return null;
-            }
             LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         }
