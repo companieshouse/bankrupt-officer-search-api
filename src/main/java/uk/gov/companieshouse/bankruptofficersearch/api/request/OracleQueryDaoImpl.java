@@ -51,12 +51,10 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
     @Override
     public ScottishBankruptOfficerSearchResultsEntity getScottishBankruptOfficers(final ScottishBankruptOfficerSearchEntity search) throws OracleQueryApiException, URIValidationException {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("uri", oracleQueryApiUrl + OFFICERS_URI);
-        LOGGER.debug("Calling Oracle Query API to fetch Scottish bankrupt officers", map);
+        map.put("uri", OFFICERS_URI);
+        LOGGER.debug("Calling Oracle Query API through SDK to fetch Scottish bankrupt officers using search query", map);
 
         try {
-            LOGGER.info("uri: " + OFFICERS_URI + " Oracle URL " +  oracleQueryApiUrl);
-            LOGGER.info("search: " + search.toString());
 
             var internalApiClient = apiSdkClient.getInternalApiClient();
             return internalApiClient.privateBankruptOfficerSearchHandler()
@@ -68,17 +66,17 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
             map.put("status_code", ex.getStatusCode());
             LOGGER.error(ex, map);
 
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND.value()) {
+                LOGGER.debug("No officers found", map);
+                return null;
+            }
+
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         } catch (URIValidationException ex) {
             throw new URIValidationException(ex.getMessage(), ex.getCause());
         }
         catch (HttpClientErrorException ex) {
             map.put("status_code", ex.getStatusCode());
-
-            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-                LOGGER.debug("Oracle query API returned not found", map);
-                return null;
-            }
 
             LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
@@ -88,12 +86,11 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
     @Override
     public ScottishBankruptOfficerDetailsEntity getScottishBankruptOfficer(final String officerId) throws OracleQueryApiException, URIValidationException {
         String uri = OFFICER_URI.expand(officerId).toString();
-
         HashMap<String, Object> map = new HashMap<>();
-        map.put("uri", oracleQueryApiUrl + uri);
+        map.put("uri", uri);
+        LOGGER.debug("Calling Oracle Query API through SDK to fetch single Scottish bankrupt officer using ID", map);
 
         try {
-            LOGGER.info("uri: " + uri + " Oracle URL " +  oracleQueryApiUrl);
 
             var internalApiClient = apiSdkClient.getInternalApiClient();
             return internalApiClient.privateBankruptOfficerSearchHandler()
@@ -103,15 +100,15 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         } catch (ApiErrorResponseException ex) {
             map.put("status_code", ex.getStatusCode());
             LOGGER.error(ex, map);
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND.value()) {
+                LOGGER.debug("No officer found for ID", map);
+                return null;
+            }
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         } catch (URIValidationException ex) {
             throw new URIValidationException(ex.getMessage(), ex.getCause());
         } catch (HttpClientErrorException ex) {
             map.put("status_code", ex.getStatusCode());
-            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-                LOGGER.debug("Oracle query API returned not found", map);
-                return null;
-            }
             LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         }

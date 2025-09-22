@@ -109,7 +109,8 @@ class OracleQueryDaoImplTest {
         when(apiSdkClient.getInternalApiClient()).thenReturn(internalApiClient);
         when(internalApiClient.privateBankruptOfficerSearchHandler()).thenReturn(privateBankruptOfficerSearchHandler);
         when(privateBankruptOfficerSearchHandler.getScottishBankruptOfficers( OFFICERS_URI, searchEntity)).thenReturn(privateBankruptOfficersSearch);
-        when(privateBankruptOfficersSearch.execute()).thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
+        when(privateBankruptOfficersSearch.execute()).thenThrow(new ApiErrorResponseException(new HttpResponseException.Builder(
+                HttpStatus.NOT_FOUND.value(), "Not Found", new HttpHeaders())));
 
 
         ScottishBankruptOfficerSearchResultsEntity result = oracleQueryDao.getScottishBankruptOfficers(searchEntity);
