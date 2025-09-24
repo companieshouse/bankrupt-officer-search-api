@@ -2,7 +2,6 @@ package uk.gov.companieshouse.bankruptofficersearch.api.request;
 
 import static uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication.APPLICATION_NAME_SPACE;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,12 +14,9 @@ import uk.gov.companieshouse.api.error.ApiErrorResponseException;
 import uk.gov.companieshouse.api.handler.exception.URIValidationException;
 import uk.gov.companieshouse.bankruptofficersearch.api.exception.OracleQueryApiException;
 
-
 import  uk.gov.companieshouse.api.model.bankruptofficer.ScottishBankruptOfficerSearchEntity;
 import  uk.gov.companieshouse.api.model.bankruptofficer.ScottishBankruptOfficerSearchResultsEntity;
 import  uk.gov.companieshouse.api.model.bankruptofficer.ScottishBankruptOfficerDetailsEntity;
-
-
 
 import uk.gov.companieshouse.bankruptofficersearch.api.service.impl.ApiSdkClient;
 import uk.gov.companieshouse.logging.Logger;
@@ -55,7 +51,6 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         LOGGER.debug("Calling Oracle Query API through SDK to fetch Scottish bankrupt officers using search query", map);
 
         try {
-
             var internalApiClient = apiSdkClient.getInternalApiClient();
             return internalApiClient.privateBankruptOfficerSearchHandler()
                     .getScottishBankruptOfficers(OFFICERS_URI, search)
@@ -63,21 +58,22 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
                     .getData();
         }
         catch (ApiErrorResponseException ex) {
-            map.put("status_code", ex.getStatusCode());
-            LOGGER.error(ex, map);
-
             if (ex.getStatusCode() == HttpStatus.NOT_FOUND.value()) {
                 LOGGER.debug("No officers found", map);
                 return null;
             }
-
+            map.put("status_code", ex.getStatusCode());
+            LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         } catch (URIValidationException ex) {
             throw new URIValidationException(ex.getMessage(), ex.getCause());
         }
         catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                LOGGER.debug("No officers found", map);
+                return null;
+            }
             map.put("status_code", ex.getStatusCode());
-
             LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         }
@@ -91,23 +87,26 @@ public class OracleQueryDaoImpl implements BankruptOfficerDao {
         LOGGER.debug("Calling Oracle Query API through SDK to fetch single Scottish bankrupt officer using ID", map);
 
         try {
-
             var internalApiClient = apiSdkClient.getInternalApiClient();
             return internalApiClient.privateBankruptOfficerSearchHandler()
                     .getSingleScottishBankruptOfficer(uri)
                     .execute()
                     .getData();
         } catch (ApiErrorResponseException ex) {
-            map.put("status_code", ex.getStatusCode());
-            LOGGER.error(ex, map);
             if (ex.getStatusCode() == HttpStatus.NOT_FOUND.value()) {
                 LOGGER.debug("No officer found for ID", map);
                 return null;
             }
+            map.put("status_code", ex.getStatusCode());
+            LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());
         } catch (URIValidationException ex) {
             throw new URIValidationException(ex.getMessage(), ex.getCause());
         } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                LOGGER.debug("No officers found", map);
+                return null;
+            }
             map.put("status_code", ex.getStatusCode());
             LOGGER.error(ex, map);
             throw new OracleQueryApiException(ex.getMessage(), ex.getCause());

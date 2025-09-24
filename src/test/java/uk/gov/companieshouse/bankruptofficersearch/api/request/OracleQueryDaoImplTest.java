@@ -105,16 +105,13 @@ class OracleQueryDaoImplTest {
     @Test
     void testSearchScottishBankruptOfficersWhenNoResultsReturned() throws OracleQueryApiException, URIValidationException, ApiErrorResponseException {
 
-
         when(apiSdkClient.getInternalApiClient()).thenReturn(internalApiClient);
         when(internalApiClient.privateBankruptOfficerSearchHandler()).thenReturn(privateBankruptOfficerSearchHandler);
         when(privateBankruptOfficerSearchHandler.getScottishBankruptOfficers( OFFICERS_URI, searchEntity)).thenReturn(privateBankruptOfficersSearch);
         when(privateBankruptOfficersSearch.execute()).thenThrow(new ApiErrorResponseException(new HttpResponseException.Builder(
                 HttpStatus.NOT_FOUND.value(), "Not Found", new HttpHeaders())));
 
-
         ScottishBankruptOfficerSearchResultsEntity result = oracleQueryDao.getScottishBankruptOfficers(searchEntity);
-
         assertNull(result);
     }
 
@@ -146,20 +143,18 @@ class OracleQueryDaoImplTest {
         assertEquals(officerDetails, result);
     }
 
-    /*@Test
-    void testGetScottishBankruptOfficerWhenOfficerNotFound() throws OracleQueryApiException, URIValidationException {
+    @Test
+    void testGetScottishBankruptOfficerWhenOfficerNotFound() throws OracleQueryApiException, URIValidationException, ApiErrorResponseException {
         when(apiSdkClient.getInternalApiClient()).thenReturn(internalApiClient);
         when(internalApiClient.privateBankruptOfficerSearchHandler()).thenReturn(privateBankruptOfficerSearchHandler);
-        when(privateBankruptOfficerSearchHandler.getSingleScottishBankruptOfficer(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI + "/" + OFFICER_ID)).thenThrow(httpClientErrorException);
-
-
-        when(restTemplate.getForObject(ORACLE_QUERY_API_TEST_URL + OFFICERS_URI + "/" + OFFICER_ID, ScottishBankruptOfficerDetailsEntity.class)).thenThrow(httpClientErrorException);
-        when(httpClientErrorException.getStatusCode()).thenReturn(HttpStatus.NOT_FOUND);
+        when(privateBankruptOfficerSearchHandler.getSingleScottishBankruptOfficer(OFFICERS_URI + "/" + OFFICER_ID)).thenReturn(privateSingleBankruptOfficerSearch);
+        when(privateSingleBankruptOfficerSearch.execute()).thenThrow(new ApiErrorResponseException(new HttpResponseException.Builder(
+                HttpStatus.NOT_FOUND.value(), "Not Found", new HttpHeaders())));
 
         ScottishBankruptOfficerDetailsEntity result = oracleQueryDao.getScottishBankruptOfficer(OFFICER_ID);
 
         assertNull(result);
-    }*/
+    }
 
     @Test
     void testGetScottishBankruptOfficerWhenInternalServerErrorReturned() throws ApiErrorResponseException, URIValidationException {
