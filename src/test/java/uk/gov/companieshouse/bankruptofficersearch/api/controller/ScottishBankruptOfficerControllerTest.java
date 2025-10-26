@@ -2,7 +2,6 @@ package uk.gov.companieshouse.bankruptofficersearch.api.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +40,11 @@ class ScottishBankruptOfficerControllerTest {
 
         ResponseEntity<ScottishBankruptOfficerSearchResults> response = controller.searchScottishBankruptOfficers(search);
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertNotNull(response.getBody().getItems());
+        assertEquals(0, response.getBody().getItems().size());
+        assertEquals(0, response.getBody().getTotalResults());
     }
 
     @Test
@@ -61,7 +64,7 @@ class ScottishBankruptOfficerControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(results);
         assertNotNull(results.getItems());
-        assertEquals(officer, results.getItems().get(0));
+        assertEquals(officer, results.getItems().getFirst());
     }
 
     @Test
