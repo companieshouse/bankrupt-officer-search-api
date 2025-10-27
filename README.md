@@ -13,7 +13,7 @@ To run this service locally via a local Docker environment:
 1. Clone the [Docker CHS Development](https://github.com/companieshouse/docker-chs-development) repository and follow the steps in the README
 2. Enable the `bankrupt` and `platform` modules by running `./bin/chs-dev modules enable bankrupt` & `./bin/chs-dev modules enable platform`
 3. Enable the development mode for the `bankrupt-officer-search-api` by running `./bin/chs-dev development enable bankrupt-officer-api`
-4. To run Docker, run `tilt up` within the `docker-chs-development` directory and then press spacebar. This will open Tilt within a browser
+4. To run Docker, run `chs-dev up` within the `docker-chs-development` directory and then press spacebar.
 5. Access the API by using this URL: `http://chs.local/internal/officer-search/scottish-bankrupt-officers`
 
 ### Endpoints
