@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import uk.gov.companieshouse.bankruptofficersearch.api.exception.ServiceException;
-import uk.gov.companieshouse.api.model.bankruptofficer.ScottishBankruptOfficerDetailsEntity;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerDetails;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearch;
 import uk.gov.companieshouse.bankruptofficersearch.api.model.rest.ScottishBankruptOfficerSearchResults;
 import uk.gov.companieshouse.bankruptofficersearch.api.service.impl.ScottishBankruptOfficerSearchServiceImpl;
+
+import java.util.Collections;
 
 @Controller
 public class ScottishBankruptOfficerController {
@@ -25,8 +26,13 @@ public class ScottishBankruptOfficerController {
     public ResponseEntity<ScottishBankruptOfficerSearchResults> searchScottishBankruptOfficers(@RequestBody ScottishBankruptOfficerSearch search) {
         try {
             ScottishBankruptOfficerSearchResults results = service.searchScottishBankruptOfficers(search);
+            // Return empty list if no officers found
             if (results == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                results = new ScottishBankruptOfficerSearchResults();
+                results.setItems(Collections.emptyList());
+                results.setTotalResults(0);
+                results.setItemsPerPage(0);
+                results.setStartIndex(0);
             }
             return new ResponseEntity<>(results, HttpStatus.OK);
         } catch (ServiceException ex) {
