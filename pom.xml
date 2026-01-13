@@ -30,6 +30,13 @@
         <structured-logging.version>3.0.26</structured-logging.version>
 
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
+        <!--  Sonar -->
+        <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
+        <sonar.projectName>bankrupt-officer-search-api</sonar.projectName>
+        <sonar.projectKey>uk.gov.companieshouse:bankrupt-officer-search-api</sonar.projectKey>
+        <sonar.token>${CODE_ANALYSIS_TOKEN}</sonar.token>
+        <sonar.login></sonar.login>
+        <sonar.password></sonar.password>
     </properties>
 
     <dependencyManagement>
@@ -107,6 +114,12 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
             <version>${hamcrest-all-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>${sonar-maven-plugin.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
