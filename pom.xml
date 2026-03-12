@@ -28,6 +28,7 @@
         <private-api-sdk-java.version>4.0.370</private-api-sdk-java.version>
         <api-sdk-manager-java-library.version>3.0.7</api-sdk-manager-java-library.version>
         <structured-logging.version>3.0.26</structured-logging.version>
+        <assertj-core.version>3.27.7</assertj-core.version>
 
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
         <!--  Sonar -->
@@ -131,6 +132,12 @@
             <groupId>uk.gov.companieshouse</groupId>
             <artifactId>api-sdk-manager-java-library</artifactId>
             <version>${api-sdk-manager-java-library.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
