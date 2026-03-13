@@ -23,16 +23,16 @@
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
         <mockito-junit-jupiter-version>5.16.0</mockito-junit-jupiter-version>
-        <spring-boot-dependencies.version>3.4.3</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.5.11</spring-boot-dependencies.version>
         <spring-boot-maven-plugin.version>3.4.3</spring-boot-maven-plugin.version>
-        <private-api-sdk-java.version>4.0.370</private-api-sdk-java.version>
-        <api-sdk-manager-java-library.version>3.0.7</api-sdk-manager-java-library.version>
+        <private-api-sdk-java.version>4.0.477</private-api-sdk-java.version>
+        <api-sdk-manager-java-library.version>3.0.16</api-sdk-manager-java-library.version>
         <structured-logging.version>3.0.26</structured-logging.version>
         <assertj-core.version>3.27.7</assertj-core.version>
 
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
         <!--  Sonar -->
-        <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.5.0.6356</sonar-maven-plugin.version>
         <sonar.projectName>bankrupt-officer-search-api</sonar.projectName>
         <sonar.projectKey>uk.gov.companieshouse:bankrupt-officer-search-api</sonar.projectKey>
         <sonar.token>${CODE_ANALYSIS_TOKEN}</sonar.token>
@@ -132,6 +132,18 @@
             <groupId>uk.gov.companieshouse</groupId>
             <artifactId>api-sdk-manager-java-library</artifactId>
             <version>${api-sdk-manager-java-library.version}</version>
+        </dependency>
+        <!-- Addresses CVE-2025-68161 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.25.3</version>
+        </dependency>
+        <!-- Addresses CVE-2025-48924 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.18.0</version>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
