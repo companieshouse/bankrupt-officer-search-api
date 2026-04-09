@@ -23,8 +23,8 @@
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
         <mockito-junit-jupiter-version>5.16.0</mockito-junit-jupiter-version>
-        <spring-boot-dependencies.version>3.5.11</spring-boot-dependencies.version>
-        <spring-boot-maven-plugin.version>3.4.3</spring-boot-maven-plugin.version>
+        <spring-boot-dependencies.version>4.0.5</spring-boot-dependencies.version>
+        <spring-boot-maven-plugin.version>4.0.5</spring-boot-maven-plugin.version>
         <private-api-sdk-java.version>4.0.477</private-api-sdk-java.version>
         <api-sdk-manager-java-library.version>3.0.16</api-sdk-manager-java-library.version>
         <structured-logging.version>3.0.26</structured-logging.version>
