@@ -149,6 +149,17 @@
             <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Addresses CVE-2026-33186 -->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-api</artifactId>
+            <version>1.80.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-context</artifactId>
+            <version>1.80.0</version>
+        </dependency>
     </dependencies>
 
     <build>
