@@ -25,11 +25,10 @@
         <mockito-junit-jupiter-version>5.16.0</mockito-junit-jupiter-version>
         <spring-boot-dependencies.version>4.0.5</spring-boot-dependencies.version>
         <spring-boot-maven-plugin.version>4.0.5</spring-boot-maven-plugin.version>
-        <private-api-sdk-java.version>4.0.492</private-api-sdk-java.version>
-        <api-sdk-manager-java-library.version>3.0.18</api-sdk-manager-java-library.version>
-        <structured-logging.version>3.0.53</structured-logging.version>
+        <private-api-sdk-java.version>4.0.477</private-api-sdk-java.version>
+        <api-sdk-manager-java-library.version>3.0.16</api-sdk-manager-java-library.version>
+        <structured-logging.version>3.0.26</structured-logging.version>
         <assertj-core.version>3.27.7</assertj-core.version>
-        <opentelemetry.version>2.24.0</opentelemetry.version>
 
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
         <!--  Sonar -->
@@ -44,13 +43,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-instrumentation-bom</artifactId>
-            <version>${opentelemetry.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot-dependencies.version}</version>
@@ -61,10 +53,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-spring-boot-starter</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
@@ -144,22 +133,23 @@
             <artifactId>api-sdk-manager-java-library</artifactId>
             <version>${api-sdk-manager-java-library.version}</version>
         </dependency>
+        <!-- Addresses CVE-2025-68161 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.25.3</version>
+        </dependency>
+        <!-- Addresses CVE-2025-48924 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.18.0</version>
+        </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj-core.version}</version>
             <scope>test</scope>
-        </dependency>
-        <!-- Addresses CVE-2026-33186 -->
-        <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-api</artifactId>
-            <version>1.80.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-context</artifactId>
-            <version>1.80.0</version>
         </dependency>
     </dependencies>
 
