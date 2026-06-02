@@ -23,17 +23,19 @@
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
         <mockito-junit-jupiter-version>5.16.0</mockito-junit-jupiter-version>
-        <spring-boot-dependencies.version>4.0.5</spring-boot-dependencies.version>
-        <spring-boot-maven-plugin.version>4.0.5</spring-boot-maven-plugin.version>
+        <spring-boot-dependencies.version>4.0.6</spring-boot-dependencies.version>
+        <spring-boot-maven-plugin.version>4.0.6</spring-boot-maven-plugin.version>
         <private-api-sdk-java.version>4.0.492</private-api-sdk-java.version>
         <api-sdk-manager-java-library.version>3.0.18</api-sdk-manager-java-library.version>
         <structured-logging.version>3.0.53</structured-logging.version>
         <assertj-core.version>3.27.7</assertj-core.version>
         <opentelemetry.version>2.24.0</opentelemetry.version>
+        <tomcat.version>11.0.22</tomcat.version>
+        <plexus-utils.version>3.6.1</plexus-utils.version>
 
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
         <!--  Sonar -->
-        <sonar-maven-plugin.version>5.5.0.6356</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.7.0.6970</sonar-maven-plugin.version>
         <sonar.projectName>bankrupt-officer-search-api</sonar.projectName>
         <sonar.projectKey>uk.gov.companieshouse:bankrupt-officer-search-api</sonar.projectKey>
         <sonar.token>${CODE_ANALYSIS_TOKEN}</sonar.token>
@@ -160,6 +162,32 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-context</artifactId>
             <version>1.80.0</version>
+        </dependency>
+        <!-- Force Tomcat upgrades for security fixes:
+             CVE-2026-43515, CVE-2026-43514, CVE-2026-43513, CVE-2026-43512,
+             CVE-2026-42498, CVE-2026-41293, CVE-2026-41284.
+             Remove these forced upgrades once the Spring Boot BOM manages a newer fixed Tomcat version. -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-el</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <!-- Addresses CVE-2025-67030 -->
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>${plexus-utils.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
