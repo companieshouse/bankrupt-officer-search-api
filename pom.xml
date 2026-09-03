@@ -30,7 +30,7 @@
         <structured-logging.version>3.0.53</structured-logging.version>
         <assertj-core.version>3.27.7</assertj-core.version>
         <opentelemetry.version>2.24.0</opentelemetry.version>
-        <tomcat.version>11.0.22</tomcat.version>
+        <tomcat.version>11.0.25</tomcat.version>
         <plexus-utils.version>3.6.1</plexus-utils.version>
 
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
