@@ -35,7 +35,7 @@
 
         <start-class>uk.gov.companieshouse.bankruptofficersearch.api.BankruptOfficerSearchApiApplication</start-class>
         <!--  Sonar -->
-        <sonar-maven-plugin.version>5.7.0.6970</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.8.0.7211</sonar-maven-plugin.version>
         <sonar.projectName>bankrupt-officer-search-api</sonar.projectName>
         <sonar.projectKey>uk.gov.companieshouse:bankrupt-officer-search-api</sonar.projectKey>
         <sonar.token>${CODE_ANALYSIS_TOKEN}</sonar.token>
@@ -128,6 +128,13 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
             <version>${hamcrest-all-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Addresses GHSA-9pwp-9qqc-pr26 -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>1.85</version>
             <scope>test</scope>
         </dependency>
         <dependency>
